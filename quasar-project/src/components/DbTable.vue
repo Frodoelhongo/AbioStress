@@ -9,6 +9,7 @@
     row-key="name"
     no-data-label="No registros disponibles."
     no-results-label="No se encontraron registros coincidentes"
+    style="background:transparent"
   >
   <template v-slot:top-right>
         <q-input outlined rounded dense debounce="300" v-model="filter" placeholder="Buscar">

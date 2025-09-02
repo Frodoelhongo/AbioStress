@@ -1,1 +1,11 @@
-// app global css in SCSS form
+// set body background as #f8f4ef
+
+body {
+  background: #f8f4ef;
+}
+
+.content-section {
+  padding: 100px 20px;
+  min-height: 100vh; /* Make sure sections are tall enough to trigger scroll */
+  border-bottom: 1px solid #ddd;
+}

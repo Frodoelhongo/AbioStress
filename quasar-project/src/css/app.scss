@@ -5,7 +5,6 @@ body {
 }
 
 .content-section {
-  padding: 100px 20px;
-  min-height: 100vh; /* Make sure sections are tall enough to trigger scroll */
-  border-bottom: 1px solid #ddd;
+  padding: 56px 20px 20px 20px;
+  min-height: calc(100vh - 100px); /* Make sure sections are tall enough to trigger scroll */
 }

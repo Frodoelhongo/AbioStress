@@ -6,19 +6,18 @@
 
         <img :src="abioStressTwasLogo" alt="Logo" width="50" height="50" />
         <q-toolbar-title class="text-bold">AbioStress-TWAS</q-toolbar-title>
-
-        <q-item
-          v-for="link in navLinks"
-          :key="link.id"
-          clickable
-          v-ripple
-
-          :class="{ 'active-link': activeSection === link.id }"
+        <q-tabs
+          v-model="tab"
+          dense
+          class="link"
+          active-class="active-link"
+          align="justify"
+          narrow-indicator
         >
-      <q-item-section>
-        <a class = 'link' :href="'#' + link.id">{{ link.label }}</a>
-      </q-item-section>
-    </q-item>
+          <q-tab v-for="link in navLinks"
+          :key="link.id"
+          :name="link.id" :label="link.label" />
+        </q-tabs>
       </q-toolbar>
       <hr style="border: 3px solid #5b672d; padding: 0; margin: 0;"/>
     </q-header>
@@ -32,7 +31,7 @@
     </q-drawer-->
 
     <q-page-container>
-      <router-view />
+      <router-view v-model="tab" />
     </q-page-container>
   </q-layout>
 </template>
@@ -43,43 +42,13 @@
 import abioStressTwasLogo from 'src/assets/abio-stress-twas-logo.png';
 import { ref } from 'vue';
 
-const activeSection = ref('home');
 const navLinks = [
   { id: 'home', label: 'INICIO' },
   { id: 'database', label: 'BASE DE DATOS' },
   { id: 'about-us', label: 'SOBRE NOSOTROS' }
 ];
 
-// find id of the section the page is in
-import { onMounted, onBeforeUnmount } from 'vue';
-
-function getCurrentSectionId() {
-  const scrollPosition = window.scrollY + 100; // offset for header
-  for (const link of navLinks) {
-    const section = document.getElementById(link.id);
-    if (section) {
-      const top = section.offsetTop;
-      const bottom = top + section.offsetHeight;
-      if (scrollPosition >= top && scrollPosition < bottom) {
-        return link.id;
-      }
-    }
-  }
-  return navLinks?.[0]?.id || '';
-}
-
-function handleScroll() {
-  activeSection.value = getCurrentSectionId();
-}
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-  handleScroll();
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener('scroll', handleScroll);
-});
+const tab = ref('mails');
 </script>
 <style scoped>
 .active-link {

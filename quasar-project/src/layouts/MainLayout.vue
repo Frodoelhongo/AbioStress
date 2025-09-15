@@ -48,7 +48,7 @@ const navLinks = [
   { id: 'about-us', label: 'SOBRE NOSOTROS' }
 ];
 
-const tab = ref('mails');
+const tab = ref('home');
 </script>
 <style scoped>
 .active-link {

@@ -22,6 +22,15 @@
     <q-tab-panel name="database">
       <db-table />
     </q-tab-panel>
+    <q-tab-panel name="gene-prediction">
+      <section id="gene-prediction" class="content-section">
+        <div style="max-width: 800px; margin: auto;">
+          <p class="text-h2">Predicción de Genes</p>
+          <p>Próximamente podrás predecir qué genes responden a estrés abiótico en los cultivos de interés, ingresando las características ambientales y del suelo.</p>
+          <p>Por ahora, puedes explorar la base de datos para ver los genes que ya hemos identificado como relacionados con la respuesta al estrés abiótico.</p>
+        </div>
+      </section>
+    </q-tab-panel>
     <q-tab-panel name="about-us">
       <section id="about-us" class="content-section">
         <div style="max-width: 1000px; margin: auto;">

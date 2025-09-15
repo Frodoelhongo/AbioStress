@@ -45,6 +45,7 @@ import { ref } from 'vue';
 const navLinks = [
   { id: 'home', label: 'INICIO' },
   { id: 'database', label: 'BASE DE DATOS' },
+  { id: 'gene-prediction', label: 'PREDICCIÓN DE GENES' },
   { id: 'about-us', label: 'SOBRE NOSOTROS' }
 ];
 

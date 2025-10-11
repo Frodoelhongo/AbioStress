@@ -1,37 +1,57 @@
 <template>
   <q-table
-  class="my-sticky-header-table"
-    flat bordered
+    class="my-sticky-header-table"
+    flat
+    bordered
     :rows-per-page-options="[0]"
     hide-pagination
     :filter="filter"
-    :rows="rows"
+    :rows="filteredRows"
     :columns="columns as any"
     row-key="name"
     no-data-label="No registros disponibles."
     no-results-label="No se encontraron registros coincidentes"
-    style="background:transparent; height: calc(100vh - 100px);"
+    style="background: transparent; height: calc(100vh - 100px)"
     virtual-scroll
   >
-  <template v-slot:top-right>
-        <q-input outlined rounded dense debounce="300" v-model="filter" placeholder="Buscar">
-          <template v-slot:prepend>
-            <q-icon name="search" />
-          </template>
-          <template  v-slot:append>
-            <q-btn flat icon="close"  @click="filter = ''" color="negative" :disabled="!filter" />
-          </template>
-        </q-input>
-      </template>
+    <template v-slot:top-left>
+      <div class="q-gutter-sm">
+        <template v-for="specie in species" :key="specie">
+          <q-radio v-model="selectedSpecies" :val="specie" :label="specie" />
+        </template>
+      </div>
+    </template>
+    <template v-slot:top-right>
+      <q-input outlined rounded dense debounce="300" v-model="filter" placeholder="Buscar">
+        <template v-slot:prepend>
+          <q-icon name="search" />
+        </template>
+        <template v-slot:append>
+          <q-btn flat icon="close" @click="filter = ''" color="negative" :disabled="!filter" />
+        </template>
+      </q-input>
+    </template>
   </q-table>
 </template>
 
 <script setup lang="ts">
 import { rows, columns } from 'src/services/data';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 const filter = ref('');
 
+const species = rows.reduce((uniqueSpecies, thisSpecies) => {
+  if (!uniqueSpecies.find((val) => thisSpecies.especie === val)) {
+    uniqueSpecies.push(thisSpecies.especie);
+  }
+  return uniqueSpecies;
+}, [] as string[]);
+
+const selectedSpecies = ref(species[0] || '');
+const filteredRows = computed(() => {
+  if (!selectedSpecies.value) return rows;
+  return rows.filter((row) => row.especie === selectedSpecies.value);
+});
 </script>
 <style lang="sass">
 .my-sticky-header-table

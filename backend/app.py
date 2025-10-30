@@ -14,7 +14,10 @@ app = FastAPI(title="AbioStress Backend", version="1.0")
 # --- CORS: permitir llamadas desde el frontend en dev ---
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],   # en producción limita esto a tu dominio
+    allow_origins=[
+        "https://abio-stress-twas.biorem.cc",
+        "http://localhost:9000",  # optional, useful if testing locally
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

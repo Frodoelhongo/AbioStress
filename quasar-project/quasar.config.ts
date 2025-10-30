@@ -97,8 +97,10 @@ export default defineConfig((ctx) => {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#devserver
     devServer: {
-      // https: true,
+      host: '0.0.0.0', // allow external connections
+      port: 9000, // or whatever your dev port is
       open: true, // opens browser window automatically
+      allowedHosts: ['abio-stress-twas.biorem.cc'],
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#framework

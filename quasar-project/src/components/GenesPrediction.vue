@@ -228,24 +228,19 @@ const result = ref<null | {
 // Valores por defecto del formulario
 const inputModelData = ref<GENE_MODEL_INPUTS>({
   cultivo: 'Sandía',
-  temperatura: undefined as unknown as number,
-  humedadRelativa: undefined as unknown as number,
-  intensidadLuminica: undefined as unknown as number,
-  pH: undefined as unknown as number,
-  humedadSuelo: undefined as unknown as number,
-  carbonoOrganico: undefined as unknown as number,
-  nitrogenoTotal: undefined as unknown as number,
-  fosforoSoluble: undefined as unknown as number,
-  texturaSuelo: undefined as unknown as
-    | 'Arenoso'
-    | 'Franco Arenoso'
-    | 'Franco'
-    | 'Franco Arcilloso'
-    | 'Arcilloso',
-  aguaPorcentual: undefined as unknown as number,
-  nacl: undefined as unknown as number,
-  cd: undefined as unknown as number,
-  al: undefined as unknown as number,
+  temperatura: 27,
+  humedadRelativa: 40,
+  intensidadLuminica: 800,
+  pH: 5,
+  humedadSuelo: 10,
+  carbonoOrganico: 1.5,
+  nitrogenoTotal: 0.5,
+  fosforoSoluble: 0.5,
+  texturaSuelo: 'Franco Arenoso',
+  aguaPorcentual: 10,
+  nacl: 1,
+  cd: 0.5,
+  al: 0.5,
 });
 
 const num =

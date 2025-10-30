@@ -1,0 +1,28 @@
+{
+  "categorical": [],
+  "numeric": [
+    "Temperatura (\u00b0C)",
+    "Humedad Relativa (%)",
+    "Intensidad Lum\u00ednica ( \u03bcmol\u00b7m\u207b\u00b2\u00b7s\u207b\u00b9)",
+    "pH del Suelo",
+    "Humedad del suelo (%)",
+    "Conductividad electrica (dS/m)",
+    "Carbono organico total (%)",
+    "Nitrogeno total (kg/ha)",
+    "Fosforo soluble (mg/kg)",
+    "Franco-arenosa",
+    "Limosos",
+    "Arenosa",
+    "PEG/Agua (%)",
+    "NaCl (mM)",
+    "Temp (\u00b0C)",
+    "Cd (mg/L)",
+    "Al (mol/L)",
+    "Estres_Sequia",
+    "Estres_Salinidad",
+    "Estres_Calor",
+    "Estres_Frio",
+    "Estres_Cadmio",
+    "Estres_Aluminio"
+  ]
+}

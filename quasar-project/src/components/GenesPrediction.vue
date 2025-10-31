@@ -142,7 +142,7 @@
 
           <!-- PANEL: Interpretación (misma página, oculto hasta abrir) -->
           <q-tab-panel v-if="showInterp" name="interp">
-            <InterpretationPanel :result="result" />
+            <InterpretationPanel :result="result" :excelUrl="'/db/AbioStress-db.xlsx'"/>
           </q-tab-panel>
         </q-tab-panels>
       </div>
@@ -238,14 +238,15 @@ async function submitForm() {
             : String(g)
       ),
     }
-  } catch (err: unknown) {
+  } // <-- Add this closing brace for submitForm
+  catch (err: unknown) {
     if (err instanceof UnsupportedCropError) {
-      errorMsg.value = Modelo no disponible para ${err.cultivo}.
+      errorMsg.value = `Modelo no disponible para ${err.cultivo}.`;
     } else {
-      errorMsg.value = 'Error al obtener la predicción. Intente nuevamente más tarde.'
+      errorMsg.value = 'Error al obtener la predicción. Intente nuevamente más tarde.';
     }
   } finally {
-    loading.value = false
+    loading.value = false;
   }
 }
 </script>

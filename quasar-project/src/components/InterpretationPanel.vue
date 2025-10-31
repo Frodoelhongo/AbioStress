@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { QTableProps } from 'quasar'
+import type { QTableProps } from 'quasar' //  ahora usa "import type"
 
+// Tipo del resultado recibido desde GenesPrediction
 type PredictionResult = {
   predicted_line: string
   probabilities: Record<string, number>
   genes: Array<{ gene: string; score?: number; stresses?: string[] } | string>
 } | null
 
-const props = defineProps<{ result: PredictionResult }>()
+//  definimos props y las usamos (aunque sea para validación)
+defineProps<{ result: PredictionResult }>()
 
 // Archivo subido (Excel)
 const file = ref<File | null>(null)
@@ -23,12 +25,15 @@ const filtered = computed(() => {
   return rows.value.filter(r => r.id.toLowerCase().includes(q))
 })
 
-// Columnas
+// Columnas para la tabla
 const columns: QTableProps['columns'] = [
   { name: 'id', label: 'ID', field: 'id', align: 'left', sortable: true },
   { name: 'nombre', label: 'Nombre', field: 'nombre', align: 'left' },
   { name: 'funcion', label: 'Función', field: 'funcion', align: 'left' }
 ]
+
+//  tipo fuerte para el JSON y control de nulos
+type ExcelRow = Record<string, string | number | null | undefined>
 
 // Parsear Excel con SheetJS (xlsx)
 async function onFileChosen (f: File | null) {
@@ -39,7 +44,6 @@ async function onFileChosen (f: File | null) {
   file.value = f
 
   try {
-    // import dinámico para no romper si aún no está instalada
     const XLSX = await import('xlsx').catch(() => null)
     if (!XLSX) {
       loadError.value = 'Falta la librería "xlsx". Instálala con: npm i xlsx'
@@ -49,41 +53,45 @@ async function onFileChosen (f: File | null) {
     const buf = await f.arrayBuffer()
     const wb = XLSX.read(buf, { type: 'array' })
     const sheetName = wb.SheetNames[0]
-    const ws = wb.Sheets[sheetName]
-    const json = XLSX.utils.sheet_to_json<Record<string, any>>(ws, { defval: '' })
-
-    // Esperamos columnas: ID / Nombre / Funcion (títulos exactos o case-insensitive)
-    const norm = (s: string) => String(s || '').trim()
-    const findCol = (cands: string[]) => {
-      const headers = Object.keys(json[0] ?? {}).map(h => h.toLowerCase().trim())
-      for (const cand of cands) {
-        const idx = headers.indexOf(cand.toLowerCase())
-        if (idx !== -1) return Object.keys(json[0])[idx]
-      }
-      return null
+    const ws = wb.Sheets[sheetName!]
+    if (!ws) {
+      loadError.value = 'No se encontró ninguna hoja en el archivo.'
+      return
     }
 
+    const json = XLSX.utils.sheet_to_json<ExcelRow>(ws, { defval: '' })
     if (!json.length) {
       loadError.value = 'La hoja está vacía.'
       return
     }
 
-    const colID = findCol(['ID', 'Id', 'id'])
-    const colNombre = findCol(['Nombre', 'nombre', 'Name'])
-    const colFunc = findCol(['Funcion', 'Función', 'funcion', 'function'])
+    const headers = Object.keys(json[0] ?? {}).map(h => h.toLowerCase().trim())
+    const findCol = (cands: string[]) => {
+      for (const cand of cands) {
+        const idx = headers.indexOf(cand.toLowerCase())
+        if (idx !== -1) return Object.keys(json[0]!)[idx]
+      }
+      return null
+    }
+
+    const colID = findCol(['id', 'ID', 'Id'])
+    const colNombre = findCol(['nombre', 'name'])
+    const colFunc = findCol(['funcion', 'función', 'function'])
 
     if (!colID || !colNombre || !colFunc) {
       loadError.value = 'El archivo debe incluir columnas: ID, Nombre y Funcion.'
       return
     }
 
-    rows.value = json.map(r => ({
-      id: norm(r[colID]),
-      nombre: norm(r[colNombre]),
-      funcion: norm(r[colFunc])
-    })).filter(r => r.id) // solo filas con ID
+    rows.value = json
+      .map(r => ({
+        id: String(r[colID] ?? '').trim(),
+        nombre: String(r[colNombre] ?? '').trim(),
+        funcion: String(r[colFunc] ?? '').trim()
+      }))
+      .filter(r => r.id)
 
-  } catch (e: any) {
+  } catch {
     loadError.value = 'No se pudo leer el archivo. Verifica que sea .xlsx/.xls válido.'
   }
 }
@@ -130,7 +138,7 @@ async function onFileChosen (f: File | null) {
       {{ loadError }}
     </q-banner>
 
-    <div class="text-subtitle2 text-weight-bold q-mb-xs">(MINI BASE DE DATOS)</div>
+    <div class="text-subtitle2 text-weight-bold q-mb-xs"></div>
 
     <q-table
       :rows="filtered"

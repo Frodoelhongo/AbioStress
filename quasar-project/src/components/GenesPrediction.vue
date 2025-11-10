@@ -50,11 +50,11 @@
           <p class="text-bold">Condiciones de estrés abiótico</p>
           <q-input v-model.number="inputModelData.aguaPorcentual" label="Agua Porcentual (%)"
                    type="number" outlined dense required />
-          <q-input v-model.number="inputModelData.nacl" label="Concentración de NaCl (M)"
+          <q-input v-model.number="inputModelData.nacl" label="Concentración de NaCl (Ppm)"
                    type="number" outlined dense required />
-          <q-input v-model.number="inputModelData.cd" label="Concentración de Cd (M)"
+          <q-input v-model.number="inputModelData.cd" label="Concentración de Cd (Ppm)"
                    type="number" outlined dense required />
-          <q-input v-model.number="inputModelData.al" label="Concentración de Al (M)"
+          <q-input v-model.number="inputModelData.al" label="Concentración de Al (Ppm)"
                    type="number" outlined dense required />
 
           <q-btn

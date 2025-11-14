@@ -1,0 +1,912 @@
+{
+  "ATL-310": [
+    {
+      "gene": "Zm00001eb066570",
+      "score": 0.013378907,
+      "contrib_max": 2344.40918,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb089570",
+      "score": 0.013521357,
+      "contrib_max": 2274.120361328125,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb179590",
+      "score": 0.013316685,
+      "contrib_max": 2272.391113,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb046880",
+      "score": 0.01284166,
+      "contrib_max": 2251.982177734375,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb065320",
+      "score": 0.012659058,
+      "contrib_max": 2228.126465,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb173620",
+      "score": 0.0125279,
+      "contrib_max": 2220.182129,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb186770",
+      "score": 0.013106562,
+      "contrib_max": 2215.135742,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb070460",
+      "score": 0.012609133,
+      "contrib_max": 2190.259521484375,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb139290",
+      "score": 0.012179632,
+      "contrib_max": 2189.248047,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb125140",
+      "score": 0.012238679,
+      "contrib_max": 2173.092773,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb006760",
+      "score": 0.012072733,
+      "contrib_max": 2167.294189453125,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb093370",
+      "score": 0.012000158,
+      "contrib_max": 2161.741943359375,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb140240",
+      "score": 0.012310185,
+      "contrib_max": 2160.361328,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb118000",
+      "score": 0.012407506,
+      "contrib_max": 2156.348633,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb062240",
+      "score": 0.012477135,
+      "contrib_max": 2155.457763671875,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb165300",
+      "score": 0.011527596,
+      "contrib_max": 2152.857422,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb044230",
+      "score": 0.011661299,
+      "contrib_max": 2144.125244140625,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb102490",
+      "score": 0.012499131,
+      "contrib_max": 2143.989013671875,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb154670",
+      "score": 0.012171727,
+      "contrib_max": 2136.350098,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb003590",
+      "score": 0.012181656,
+      "contrib_max": 2129.237793,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb020710",
+      "score": 0.011906318,
+      "contrib_max": 2112.532227,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb013460",
+      "score": 0.011720734,
+      "contrib_max": 2107.319336,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb163000",
+      "score": 0.011942366,
+      "contrib_max": 2104.398438,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb054410",
+      "score": 0.012031499,
+      "contrib_max": 2102.419677734375,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb045690",
+      "score": 0.011878477,
+      "contrib_max": 2102.13623,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb138820",
+      "score": 0.012100251,
+      "contrib_max": 2095.381348,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb134400",
+      "score": 0.012166701,
+      "contrib_max": 2088.489258,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb030280",
+      "score": 0.011943314,
+      "contrib_max": 2084.277587890625,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb009310",
+      "score": 0.011942979,
+      "contrib_max": 2081.491455078125,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb159040",
+      "score": 0.012068617,
+      "contrib_max": 2079.434082,
+      "sample_id": "SRR2086125_CHR1"
+    }
+  ],
+  "B73": [
+    {
+      "gene": "Zm00001eb075340",
+      "score": 0.012837095,
+      "contrib_max": 2351.76123,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb161700",
+      "score": 0.013186771,
+      "contrib_max": 2344.889648,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb155750",
+      "score": 0.013619453,
+      "contrib_max": 2316.875,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb109670",
+      "score": 0.014012165,
+      "contrib_max": 2309.086914,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb082590",
+      "score": 0.013442363,
+      "contrib_max": 2247.377441,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb010150",
+      "score": 0.012851341,
+      "contrib_max": 2237.927246,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb066320",
+      "score": 0.013678236,
+      "contrib_max": 2235.94873,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb159410",
+      "score": 0.012463873,
+      "contrib_max": 2232.351074,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb047030",
+      "score": 0.012673169,
+      "contrib_max": 2201.030762,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb040330",
+      "score": 0.01233886,
+      "contrib_max": 2178.646973,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb051190",
+      "score": 0.01274128,
+      "contrib_max": 2174.992188,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb145110",
+      "score": 0.012684364,
+      "contrib_max": 2169.371582,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb050220",
+      "score": 0.012113122,
+      "contrib_max": 2162.857666015625,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb000380",
+      "score": 0.012715256,
+      "contrib_max": 2158.442138671875,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb100240",
+      "score": 0.012693884,
+      "contrib_max": 2153.873047,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb053130",
+      "score": 0.012066826,
+      "contrib_max": 2150.530273,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb029020",
+      "score": 0.012881109,
+      "contrib_max": 2149.186767578125,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb175470",
+      "score": 0.012129753,
+      "contrib_max": 2144.651855,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb092530",
+      "score": 0.012839785,
+      "contrib_max": 2124.362793,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb101080",
+      "score": 0.011826376,
+      "contrib_max": 2120.866211,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb118830",
+      "score": 0.01261011,
+      "contrib_max": 2115.074707,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb146000",
+      "score": 0.012337575,
+      "contrib_max": 2112.735352,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb179120",
+      "score": 0.011516589,
+      "contrib_max": 2105.630371,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb004410",
+      "score": 0.012243268,
+      "contrib_max": 2101.742676,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb060380",
+      "score": 0.012850463,
+      "contrib_max": 2100.455810546875,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb174410",
+      "score": 0.011584043,
+      "contrib_max": 2084.427246,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb185460",
+      "score": 0.012005685,
+      "contrib_max": 2084.138184,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb135270",
+      "score": 0.011826246,
+      "contrib_max": 2081.564453,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb061650",
+      "score": 0.011633387,
+      "contrib_max": 2079.053466796875,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb004340",
+      "score": 0.012345739,
+      "contrib_max": 2074.089844,
+      "sample_id": "SRR2086125_CHR1"
+    }
+  ],
+  "JC21": [
+    {
+      "gene": "Zm00001eb113330",
+      "score": 0.014276895,
+      "contrib_max": 2539.581543,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb059750",
+      "score": 0.013753891,
+      "contrib_max": 2532.564941,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb084130",
+      "score": 0.013949405,
+      "contrib_max": 2479.328613,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb012570",
+      "score": 0.013985124,
+      "contrib_max": 2356.742188,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb173290",
+      "score": 0.013139628,
+      "contrib_max": 2331.997559,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb173260",
+      "score": 0.013953783,
+      "contrib_max": 2282.995605,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb135790",
+      "score": 0.01321652,
+      "contrib_max": 2271.964844,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb125170",
+      "score": 0.013217294,
+      "contrib_max": 2268.499023,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb046000",
+      "score": 0.012344753,
+      "contrib_max": 2200.878906,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb078460",
+      "score": 0.012048757,
+      "contrib_max": 2173.568115234375,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb109510",
+      "score": 0.012204536,
+      "contrib_max": 2172.600098,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb007940",
+      "score": 0.012424155,
+      "contrib_max": 2148.941895,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb044160",
+      "score": 0.012311521,
+      "contrib_max": 2137.686035,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb116330",
+      "score": 0.011852063,
+      "contrib_max": 2137.418945,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb022960",
+      "score": 0.012431679,
+      "contrib_max": 2136.629883,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb036410",
+      "score": 0.011763069,
+      "contrib_max": 2134.248535,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb138130",
+      "score": 0.01241909,
+      "contrib_max": 2123.108887,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb147720",
+      "score": 0.012070637,
+      "contrib_max": 2119.086426,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb045740",
+      "score": 0.013032133,
+      "contrib_max": 2115.975586,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb181820",
+      "score": 0.012514947,
+      "contrib_max": 2112.271973,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb154380",
+      "score": 0.012102388,
+      "contrib_max": 2109.674072265625,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb169810",
+      "score": 0.012130298,
+      "contrib_max": 2109.316406,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb186480",
+      "score": 0.012486571,
+      "contrib_max": 2108.185059,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb147040",
+      "score": 0.012768133,
+      "contrib_max": 2102.861328,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb084180",
+      "score": 0.011764338,
+      "contrib_max": 2098.105224609375,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb058150",
+      "score": 0.01127952,
+      "contrib_max": 2091.300781,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb050760",
+      "score": 0.011731667,
+      "contrib_max": 2071.572266,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb180720",
+      "score": 0.012502801,
+      "contrib_max": 2071.044434,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb105600",
+      "score": 0.012246739,
+      "contrib_max": 2068.416016,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb013110",
+      "score": 0.011122357,
+      "contrib_max": 2059.047852,
+      "sample_id": "SRR2086125_CHR1"
+    }
+  ],
+  "Jing724": [
+    {
+      "gene": "Zm00001eb176930",
+      "score": 0.014777318,
+      "contrib_max": 2512.474609,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb044630",
+      "score": 0.013896692,
+      "contrib_max": 2408.618652,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb128170",
+      "score": 0.013637792,
+      "contrib_max": 2386.830078,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb182500",
+      "score": 0.013120737,
+      "contrib_max": 2316.278809,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb031000",
+      "score": 0.011976831,
+      "contrib_max": 2286.105469,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb130030",
+      "score": 0.012864284,
+      "contrib_max": 2267.232177734375,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb052210",
+      "score": 0.013134601,
+      "contrib_max": 2254.921630859375,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb106430",
+      "score": 0.012792686,
+      "contrib_max": 2226.254395,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb182130",
+      "score": 0.012681935,
+      "contrib_max": 2210.903809,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb079370",
+      "score": 0.013450144,
+      "contrib_max": 2206.895996,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb052760",
+      "score": 0.013150619,
+      "contrib_max": 2205.410645,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb079970",
+      "score": 0.012602316,
+      "contrib_max": 2191.186767578125,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb052250",
+      "score": 0.012223667,
+      "contrib_max": 2175.814453,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb101310",
+      "score": 0.012820037,
+      "contrib_max": 2164.52832,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb180760",
+      "score": 0.012267547,
+      "contrib_max": 2164.25,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb054700",
+      "score": 0.011155769,
+      "contrib_max": 2151.789551,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb184920",
+      "score": 0.012778702,
+      "contrib_max": 2149.388184,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb148330",
+      "score": 0.012061292,
+      "contrib_max": 2143.987793,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb160060",
+      "score": 0.012762913,
+      "contrib_max": 2141.510254,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb125840",
+      "score": 0.012859248,
+      "contrib_max": 2136.968994140625,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb042150",
+      "score": 0.012106687,
+      "contrib_max": 2136.824219,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb118270",
+      "score": 0.013183762,
+      "contrib_max": 2131.334473,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb099060",
+      "score": 0.013572834,
+      "contrib_max": 2130.711181640625,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb026990",
+      "score": 0.012670576,
+      "contrib_max": 2124.715332,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb147380",
+      "score": 0.012287299,
+      "contrib_max": 2116.192383,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb112640",
+      "score": 0.011738887,
+      "contrib_max": 2106.869629,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb179700",
+      "score": 0.012450411,
+      "contrib_max": 2104.593262,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb088810",
+      "score": 0.011751582,
+      "contrib_max": 2103.026367,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb142870",
+      "score": 0.012565984,
+      "contrib_max": 2102.247314453125,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb103220",
+      "score": 0.012231285,
+      "contrib_max": 2101.046387,
+      "sample_id": "SRR2086125_CHR1"
+    }
+  ],
+  "LH196": [
+    {
+      "gene": "Zm00001eb059930",
+      "score": 0.014269751,
+      "contrib_max": 2487.3125,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb166700",
+      "score": 0.013915413,
+      "contrib_max": 2460.338867,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb058910",
+      "score": 0.01445533,
+      "contrib_max": 2409.052246,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb082030",
+      "score": 0.014020316,
+      "contrib_max": 2399.098876953125,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb129710",
+      "score": 0.013723713,
+      "contrib_max": 2379.20459,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb027510",
+      "score": 0.01189631,
+      "contrib_max": 2269.143066,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb137180",
+      "score": 0.013011586,
+      "contrib_max": 2253.903564453125,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb140420",
+      "score": 0.013536023,
+      "contrib_max": 2241.067383,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb041880",
+      "score": 0.01277036,
+      "contrib_max": 2225.621826171875,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb137560",
+      "score": 0.012098442,
+      "contrib_max": 2211.659668,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb028160",
+      "score": 0.012346815,
+      "contrib_max": 2169.001465,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb112910",
+      "score": 0.012281289,
+      "contrib_max": 2162.144043,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb046660",
+      "score": 0.01270017,
+      "contrib_max": 2155.803223,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb181410",
+      "score": 0.012027705,
+      "contrib_max": 2148.668457,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb140670",
+      "score": 0.012054931,
+      "contrib_max": 2147.186767578125,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb000760",
+      "score": 0.012319647,
+      "contrib_max": 2140.755615234375,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb129320",
+      "score": 0.012656383,
+      "contrib_max": 2137.871094,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb116510",
+      "score": 0.012239881,
+      "contrib_max": 2133.529541015625,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb014550",
+      "score": 0.011766908,
+      "contrib_max": 2129.494873046875,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb151280",
+      "score": 0.011743256,
+      "contrib_max": 2124.282715,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb137550",
+      "score": 0.01230332,
+      "contrib_max": 2121.078125,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb075650",
+      "score": 0.012047022,
+      "contrib_max": 2094.908203,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb021570",
+      "score": 0.011437121,
+      "contrib_max": 2093.876953,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb126790",
+      "score": 0.012275929,
+      "contrib_max": 2086.791504,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb171670",
+      "score": 0.013431686,
+      "contrib_max": 2085.78418,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb000830",
+      "score": 0.012631502,
+      "contrib_max": 2082.114746,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb013880",
+      "score": 0.012283377,
+      "contrib_max": 2076.644043,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb023710",
+      "score": 0.010966055,
+      "contrib_max": 2076.163086,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb009840",
+      "score": 0.012839315,
+      "contrib_max": 2075.144287109375,
+      "sample_id": "SRR2086125_CHR1"
+    },
+    {
+      "gene": "Zm00001eb154120",
+      "score": 0.012655284,
+      "contrib_max": 2073.996094,
+      "sample_id": "SRR2086125_CHR1"
+    }
+  ]
+}

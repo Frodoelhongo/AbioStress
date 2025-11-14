@@ -10,18 +10,10 @@
           <q-select
             v-model="inputModelData.cultivo"
             label="Cultivo"
-            :options="['Maíz', 'Sorgo', 'Tomate', 'Algodón', 'Sandía']"
+            :options="cultivosDisponibles"
             outlined dense required
+            @update:model-value="onCultivoChange"
           />
-
-          <!-- Warning -->
-          <q-banner
-            v-if="inputModelData.cultivo !== 'Sandía'"
-            class="bg-amber-2 text-amber-10 q-mt-sm"
-            dense
-          >
-            Por ahora solo está disponible el modelo para <b>Sandía</b>.
-          </q-banner>
 
           <p class="text-bold q-mt-md">Condiciones ambientales</p>
           <q-input v-model.number="inputModelData.temperatura" label="Temperatura (°C)"
@@ -59,7 +51,7 @@
 
           <q-btn
             label="Predecir" color="primary" class="full-width" type="submit"
-            :disable="inputModelData.cultivo !== 'Sandía' || loading"
+            :disable="!cultivosDisponibles.includes(inputModelData.cultivo) || loading"
             :loading="loading"
           />
         </q-form>
@@ -155,6 +147,7 @@ import { ref } from 'vue'
 import {
   predictGenes,
   UnsupportedCropError,
+  SUPPORTED_CROPS,
   type GENE_MODEL_INPUTS,
 } from 'src/services/gene-model'
 import InterpretationPanel from 'components/InterpretationPanel.vue'
@@ -171,6 +164,14 @@ const result = ref<null | {
 // Tabs y visibilidad
 const tab = ref<'pred' | 'interp'>('pred')
 const showInterp = ref(false)
+
+// Cultivos disponibles
+const cultivosDisponibles = SUPPORTED_CROPS
+
+function onCultivoChange() {
+  // Aquí puedes agregar lógica si necesitas cambiar valores al cambiar cultivo
+  // Por ahora no es necesario
+}
 
 function openInterpretation () {
   showInterp.value = true
@@ -209,11 +210,6 @@ const num =
 async function submitForm() {
   errorMsg.value = null
   result.value = null
-
-  if (inputModelData.value.cultivo !== 'Sandía') {
-    errorMsg.value = 'Por ahora solo está disponible el modelo para Sandía.'
-    return
-  }
 
   try {
     loading.value = true

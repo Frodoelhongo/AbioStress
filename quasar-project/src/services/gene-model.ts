@@ -2,7 +2,7 @@
 import { api } from './api';
 
 export type Cultivo = 'Maíz' | 'Sorgo' | 'Tomate' | 'Sandía' | 'Algodón';
-export const SUPPORTED_CROPS: Cultivo[] = ['Sandía'];
+export const SUPPORTED_CROPS: Cultivo[] = ['Sandía', 'Maíz'];
 
 export interface GENE_MODEL_INPUTS {
   cultivo: Cultivo;
@@ -34,13 +34,14 @@ export class UnsupportedCropError extends Error {
   }
 }
 
-/** Llama al backend /predict (ojo: el backend actual no usa 'cultivo') */
+/** Llama al backend /predict con el cultivo especificado */
 export async function predictGenes(input: GENE_MODEL_INPUTS): Promise<GenePrediction> {
   if (!SUPPORTED_CROPS.includes(input.cultivo)) {
     throw new UnsupportedCropError(input.cultivo);
   }
 
   const payload = {
+    cultivo: input.cultivo,
     temperatura: input.temperatura,
     humedadRelativa: input.humedadRelativa,
     intensidadLuminica: input.intensidadLuminica,
@@ -64,6 +65,7 @@ export async function predictGenes(input: GENE_MODEL_INPUTS): Promise<GenePredic
 export async function fetchMeta() {
   const { data } = await api.get('/meta');
   return data as {
+    cultivos: string[];
     class_names: string[];
     numeric: string[];
     categorical: string[];

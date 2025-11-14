@@ -1,0 +1,24 @@
+{
+  "saved_at": "20251111_132606",
+  "task": "classification",
+  "class_names": [
+    "ATL-310",
+    "B73",
+    "JC21",
+    "Jing724",
+    "LH196"
+  ],
+  "n_classes": 5,
+  "input_dim": 21,
+  "alpha": 0.5,
+  "T": 2.0,
+  "preproc": {
+    "ohe": "E:\\NN_ZM\\preproc\\red3_ohe_20251111_131028.joblib",
+    "scaler": "E:\\NN_ZM\\preproc\\red3_scaler_20251111_131028.joblib",
+    "columns": "E:\\NN_ZM\\preproc\\red3_columns_20251111_131028.json"
+  },
+  "plots": {
+    "confusion": "F:\\NN_CL\\features\\red3_confusion_20251111_132606.png",
+    "loss": "F:\\NN_CL\\features\\red3_loss_20251111_132606.png"
+  }
+}

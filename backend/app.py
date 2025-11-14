@@ -40,48 +40,93 @@ def _latest(pattern: str, folder: Path) -> Path:
         )
     return cands[-1]
 
-# --- artefactos ---
-meta_path   = _latest("red3_site_meta*.json",      DIR_MODELS)
-panel_path  = _latest("line_gene_panel*.json",     DIR_MODELS)
-model_path  = _latest("red3_site_student*.pt",     DIR_MODELS)
+def _load_model_config(prefix: str):
+    """Carga configuración completa para un cultivo (modelo, scaler, metadatos, genes)"""
+    try:
+        meta_path   = _latest(f"{prefix}_site_meta*.json",      DIR_MODELS)
+        panel_path  = _latest(f"{prefix}_line_gene_panel*.json", DIR_MODELS)
+        model_path  = _latest(f"{prefix}_site_student*.pt",     DIR_MODELS)
+        
+        scaler_path = _latest(f"{prefix}_scaler*.joblib",       DIR_PREPROC)
+        ohe_path    = _latest(f"{prefix}_ohe*.joblib",          DIR_PREPROC)
+        cols_path   = _latest(f"{prefix}_columns*.json",        DIR_PREPROC)
+        
+        with open(meta_path, "r", encoding="utf-8") as f:
+            meta = json.load(f)
+        class_names = meta.get("class_names", [])
+        if not class_names:
+            raise RuntimeError(f"class_names vacío en meta de {prefix}.")
+        
+        with open(panel_path, "r", encoding="utf-8") as f:
+            gene_panel = json.load(f)
+        
+        cols = json.loads(Path(cols_path).read_text(encoding="utf-8"))
+        num_cols = cols.get("numeric", [])
+        cat_cols = cols.get("categorical", [])
+        
+        scaler = joblib.load(scaler_path)
+        ohe = joblib.load(ohe_path)
+        
+        # Dimensiones
+        try:
+            in_num = getattr(scaler, "n_features_in_", len(num_cols))
+        except Exception:
+            in_num = len(num_cols)
+        
+        try:
+            ohe_dim = len(ohe.get_feature_names_out())
+        except Exception:
+            try:
+                ohe_dim = int(ohe.transform(pd.DataFrame([{c: "" for c in cat_cols}])).shape[1]) if cat_cols else 0
+            except Exception:
+                ohe_dim = 0
+        
+        input_dim = int(in_num + ohe_dim)
+        n_classes = int(len(class_names))
+        
+        return {
+            "meta": meta,
+            "class_names": class_names,
+            "gene_panel": gene_panel,
+            "num_cols": num_cols,
+            "cat_cols": cat_cols,
+            "scaler": scaler,
+            "ohe": ohe,
+            "input_dim": input_dim,
+            "n_classes": n_classes,
+            "model_path": model_path,
+        }
+    except Exception as e:
+        raise RuntimeError(f"Error cargando configuración para {prefix}: {e}")
 
-scaler_path = _latest("red3_scaler*.joblib",       DIR_PREPROC)
-ohe_path    = _latest("red3_ohe*.joblib",          DIR_PREPROC)
-cols_path   = _latest("red3_columns*.json",        DIR_PREPROC)
+# --- Cargar configuraciones de cultivos disponibles ---
+CULTIVOS_CONFIG = {}
+CULTIVOS_DISPONIBLES = ["red3", "maiz"]  # prefijos de archivos
 
-with open(meta_path, "r", encoding="utf-8") as f:
-    META = json.load(f)
-CLASS_NAMES = META.get("class_names", [])
-if not CLASS_NAMES:
-    raise RuntimeError("class_names vacío en meta de Red3.")
+for cultivo_prefix in CULTIVOS_DISPONIBLES:
+    try:
+        CULTIVOS_CONFIG[cultivo_prefix] = _load_model_config(cultivo_prefix)
+    except Exception as e:
+        print(f"⚠️ No se pudo cargar {cultivo_prefix}: {e}")
 
-with open(panel_path, "r", encoding="utf-8") as f:
-    GENE_PANEL = json.load(f)
+if not CULTIVOS_CONFIG:
+    raise RuntimeError("No se pudo cargar ningún modelo de cultivo")
 
-COLS = json.loads(Path(cols_path).read_text(encoding="utf-8"))
+# Mapeo de nombre amigable → prefix de archivo
+CULTIVO_MAP = {
+    "Sandía": "red3",
+    "Maíz": "maiz",
+}
+
+# Para compatibilidad con código existente, usar red3 por defecto
+META = CULTIVOS_CONFIG["red3"]["meta"]
+CLASS_NAMES = CULTIVOS_CONFIG["red3"]["class_names"]
+GENE_PANEL = CULTIVOS_CONFIG["red3"]["gene_panel"]
+COLS = {"numeric": CULTIVOS_CONFIG["red3"]["num_cols"], "categorical": CULTIVOS_CONFIG["red3"]["cat_cols"]}
 NUM_COLS = COLS.get("numeric", [])
 CAT_COLS = COLS.get("categorical", [])
-
-scaler = joblib.load(scaler_path)
-ohe    = joblib.load(ohe_path)
-
-# --- dimensiones de entrada y salida a partir de preprocesadores y meta ---
-try:
-    in_num = getattr(scaler, "n_features_in_", len(NUM_COLS))
-except Exception:
-    in_num = len(NUM_COLS)
-
-try:
-    ohe_dim = len(ohe.get_feature_names_out())  # sklearn >= 1.0
-except Exception:
-    # fallback para versiones viejas
-    try:
-        ohe_dim = int(ohe.transform(pd.DataFrame([{c: "" for c in CAT_COLS}])).shape[1]) if CAT_COLS else 0
-    except Exception:
-        ohe_dim = 0
-
-INPUT_DIM  = int(in_num + ohe_dim)
-N_CLASSES  = int(len(CLASS_NAMES))
+INPUT_DIM = CULTIVOS_CONFIG["red3"]["input_dim"]
+N_CLASSES = CULTIVOS_CONFIG["red3"]["n_classes"]
 
 import torch.nn as nn
 
@@ -100,9 +145,9 @@ class StudentMLP(nn.Module):
     def forward(self, x):
         return self.net(x)
 
-def _load_model_any(path: Path) -> nn.Module:
-    # 3) intenta checkpoint/state_dict
-    model = StudentMLP(INPUT_DIM, N_CLASSES)
+def _load_model_any(path: Path, input_dim: int, n_classes: int) -> nn.Module:
+    """Carga un modelo PyTorch con las dimensiones especificadas"""
+    model = StudentMLP(input_dim, n_classes)
     try:
         payload = torch.load(path, map_location="cpu")
         if isinstance(payload, dict):
@@ -120,10 +165,24 @@ def _load_model_any(path: Path) -> nn.Module:
 
     raise RuntimeError("El .pt no contiene ni TorchScript, ni nn.Module, ni state_dict reconocible.")
 
-model = _load_model_any(model_path)
+# Cargar modelos para cada cultivo
+MODELOS = {}
+for cultivo_prefix, config in CULTIVOS_CONFIG.items():
+    try:
+        MODELOS[cultivo_prefix] = _load_model_any(
+            config["model_path"],
+            config["input_dim"],
+            config["n_classes"]
+        )
+    except Exception as e:
+        print(f"⚠️ Error cargando modelo para {cultivo_prefix}: {e}")
+
+if not MODELOS:
+    raise RuntimeError("No se pudo cargar ningún modelo")
 
 # --- esquema de entrada ---
 class SiteInput(BaseModel):
+    cultivo: str  # "Sandía" o "Maíz"
     temperatura: float
     humedadRelativa: float
     intensidadLuminica: float
@@ -138,18 +197,24 @@ class SiteInput(BaseModel):
     cd: float
     al: float
 
-def preprocess(inp: SiteInput) -> torch.Tensor:
+def preprocess(inp: SiteInput, cultivo_prefix: str) -> torch.Tensor:
+    """Preprocesa entrada para el cultivo especificado"""
+    config = CULTIVOS_CONFIG[cultivo_prefix]
+    num_cols = config["num_cols"]
+    cat_cols = config["cat_cols"]
+    scaler = config["scaler"]
+    ohe = config["ohe"]
+    
     # 1) Convierto el payload a dict simple
     d = inp.dict()
 
     # 2) Mapa de alias: de tus campos → nombres con los que se entrenó el scaler
-    #    Ajusta aquí si ves nombres distintos en /meta
     ALIAS = {
-        "temperatura": ["Temperatura (°C)", "Temp (°C)"],  # si existen ambas, rellenamos ambas
+        "temperatura": ["Temperatura (°C)", "Temp (°C)"],
         "humedadRelativa": ["Humedad Relativa (%)"],
         "intensidadLuminica": ["Intensidad Lumínica (µmol m⁻² s⁻¹)"],
         "pH": ["pH del Suelo"],
-        "humedadSuelo": ["Humedad del suelo (%)"],  # ojo: respeta mayúsculas/minúsculas exactas del meta
+        "humedadSuelo": ["Humedad del suelo (%)"],
         "carbonoOrganico": ["Carbono organico total (%)"],
         "nitrogenoTotal": ["Nitrogeno total (kg/ha)"],
         "fosforoSoluble": ["Fosforo soluble (mg/kg)"],
@@ -159,33 +224,30 @@ def preprocess(inp: SiteInput) -> torch.Tensor:
         "al": ["Al (mol/L)"],
     }
 
-    # 3) Dummies de textura: en tu meta aparecen como columnas numéricas
-    #    Ajusta los nombres EXACTOS según /meta
-    TEXTURE_COLUMNS = ["Arenoso", "Franco-arenoso", "Limoso"]  # añade/edita si hay más
+    # 3) Dummies de textura
+    TEXTURE_COLUMNS = ["Arenoso", "Franco-arenoso", "Limoso"]
 
-    # 4) Construyo una fila con TODAS las columnas numéricas que espera el scaler, inicializadas en 0
-    row = {col: 0.0 for col in NUM_COLS}
+    # 4) Construyo una fila con TODAS las columnas numéricas
+    row = {col: 0.0 for col in num_cols}
 
     # 5) Relleno las columnas mapeadas por alias
     for short_key, target_cols in ALIAS.items():
         if short_key in d:
             val = d[short_key]
-            # convierte a float seguro
             try:
                 val = float(val)
             except Exception:
                 val = 0.0
             for col in target_cols:
                 if col in row:
-                    row[col] = val  # si existe en NUM_COLS, lo rellenamos
+                    row[col] = val
 
-    # 6) Mapeo de textura: pongo 1 en la que corresponda, 0 en las demás
+    # 6) Mapeo de textura
     tex = str(d.get("texturaSuelo", "")).strip().lower()
-    # normalizo equivalencias
     TEX_MAP = {
         "arenoso": "Arenosa",
         "franco arenoso": "Franco-arenosa",
-        "franco": "Franco",                # si tu meta tuviera "Franco" como dummy
+        "franco": "Franco",
         "franco arcilloso": "Franco Arcilloso",
         "arcilloso": "Arcilloso",
         "limoso": "Limosos",
@@ -195,23 +257,19 @@ def preprocess(inp: SiteInput) -> torch.Tensor:
         if c in row:
             row[c] = 1.0 if (tex_col == c) else 0.0
 
-    # 7) Crea DataFrame en el ORDEN EXACTO que espera el scaler
-    df_num = pd.DataFrame([[row[c] for c in NUM_COLS]], columns=NUM_COLS)
+    # 7) Crea DataFrame
+    df_num = pd.DataFrame([[row[c] for c in num_cols]], columns=num_cols)
 
-    # 8) No hay categóricas (según /meta está vacío); si hubiera, construye df_cat similar
-    if CAT_COLS:
-        df_cat = pd.DataFrame([ {c: "" for c in CAT_COLS} ])
+    # 8) Categóricas
+    if cat_cols:
+        df_cat = pd.DataFrame([{c: "" for c in cat_cols}])
         X_cat = ohe.transform(df_cat)
     else:
-        X_cat = np.zeros((1,0), dtype=np.float32)
+        X_cat = np.zeros((1, 0), dtype=np.float32)
 
     # 9) Escalado
     X_num = scaler.transform(df_num).astype(np.float32)
     X = np.hstack([X_num, X_cat]).astype(np.float32)
-
-    # DEBUG opcional
-    # print("[DEBUG] row used:", row)
-    # print("[DEBUG] X shape:", X.shape, "first 5:", X[0, :5])
 
     return torch.tensor(X, dtype=torch.float32)
 
@@ -222,25 +280,51 @@ def home():
 @app.get("/meta")
 def meta():
     return {
+        "cultivos": list(CULTIVO_MAP.keys()),
         "class_names": CLASS_NAMES,
         "numeric": NUM_COLS,
         "categorical": CAT_COLS,
     }
 
-#Preditión de línea y genes
+#Predicción de línea y genes
 
 @app.post("/predict")
 def predict_site(payload: SiteInput):
     try:
-        X = preprocess(payload)
+        # Determinar cultivo y prefix
+        cultivo_nombre = payload.cultivo
+        cultivo_prefix = CULTIVO_MAP.get(cultivo_nombre)
+        
+        if not cultivo_prefix:
+            raise HTTPException(
+                status_code=400, 
+                detail=f"Cultivo no soportado: {cultivo_nombre}. Disponibles: {list(CULTIVO_MAP.keys())}"
+            )
+        
+        if cultivo_prefix not in CULTIVOS_CONFIG:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Modelo no disponible para {cultivo_nombre}"
+            )
+        
+        # Obtener config y modelo
+        config = CULTIVOS_CONFIG[cultivo_prefix]
+        model = MODELOS[cultivo_prefix]
+        class_names = config["class_names"]
+        gene_panel = config["gene_panel"]
+        
+        # Preprocesar
+        X = preprocess(payload, cultivo_prefix)
+        
+        # Predecir
         with torch.no_grad():
             logits = model(X)
-            probs  = torch.softmax(logits, dim=1).numpy()[0]
+            probs = torch.softmax(logits, dim=1).numpy()[0]
 
         # línea ganadora
         idx = int(np.argmax(probs))
-        pred_line = CLASS_NAMES[idx]
-        genes = GENE_PANEL.get(pred_line, [])
+        pred_line = class_names[idx]
+        genes = gene_panel.get(pred_line, [])
 
         used_line = pred_line
         used_genes = genes
@@ -248,8 +332,8 @@ def predict_site(payload: SiteInput):
         # fallback: si no hay genes, busca la mejor alternativa CON genes
         if not genes:
             for j in np.argsort(probs)[::-1]:  # de mayor a menor prob
-                alt_line = CLASS_NAMES[int(j)]
-                alt_genes = GENE_PANEL.get(alt_line, [])
+                alt_line = class_names[int(j)]
+                alt_genes = gene_panel.get(alt_line, [])
                 if alt_genes:  # encontramos una con genes
                     used_line = alt_line
                     used_genes = alt_genes
@@ -257,9 +341,11 @@ def predict_site(payload: SiteInput):
 
         return {
             "predicted_line": pred_line,
-            "probabilities": {name: float(p) for name, p in zip(CLASS_NAMES, probs)},
+            "probabilities": {name: float(p) for name, p in zip(class_names, probs)},
             "genes": used_genes,
             "genes_from_line": used_line  # deja claro de dónde salieron
         }
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Error en predicción: {e}")

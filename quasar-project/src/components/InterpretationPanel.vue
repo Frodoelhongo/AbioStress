@@ -52,7 +52,7 @@ async function loadRows() {
     rows.value = data.rows || []
     if (data.cultivos) availableCultivos.value = data.cultivos
   } catch (err: unknown) {
-    loadError.value = err instanceof Error && 'response' in err 
+    loadError.value = err instanceof Error && 'response' in err
       ? (err as { response?: { data?: { detail?: string } } }).response?.data?.detail || 'Error al cargar interpretaciones'
       : 'Error al cargar interpretaciones'
     console.error(err)
@@ -105,20 +105,20 @@ onMounted(() => {
     <!-- Controles de filtrado y búsqueda -->
     <div class="row items-center q-col-gutter-sm q-mb-md">
       <div class="col-12 col-md-3">
-        <q-select 
-          dense outlined 
-          v-model="cultivoFilter" 
-          :options="availableCultivos" 
+        <q-select
+          dense outlined
+          v-model="cultivoFilter"
+          :options="availableCultivos"
           label="Filtrar por cultivo"
           @update:model-value="loadRows"
         />
       </div>
 
       <div class="col-12 col-md-3">
-        <q-select 
-          dense outlined 
-          v-model="searchField" 
-          :options="['id', 'nombre', 'funcion']" 
+        <q-select
+          dense outlined
+          v-model="searchField"
+          :options="['id', 'nombre', 'funcion']"
           label="Buscar en"
         />
       </div>
@@ -138,11 +138,11 @@ onMounted(() => {
       </div>
 
       <div class="col-12 col-md-2">
-        <q-btn 
-          color="primary" 
-          dense 
-          class="full-width" 
-          @click="exportFiltered" 
+        <q-btn
+          color="primary"
+          dense
+          class="full-width"
+          @click="exportFiltered"
           :disable="!rows.length"
           icon="download"
           label="Exportar"
@@ -172,8 +172,8 @@ onMounted(() => {
         :pagination="{ rowsPerPage: 25 }"
       >
         <template v-slot:body-cell="props">
-          <q-td 
-            :props="props" 
+          <q-td
+            :props="props"
             :class="{ 'highlight-gene': isHighlighted(props.row) }"
           >
             {{ props.value }}

@@ -4,6 +4,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from typing import Optional
 import joblib, torch, json
 import numpy as np
 import pandas as pd
@@ -363,7 +364,7 @@ INTERPRETATION_FILES = {
 }
 
 @app.get('/interpretation/rows')
-def get_interpretation_rows(cultivo: str | None = None, q: str | None = None, field: str = 'id'):
+def get_interpretation_rows(cultivo: Optional[str] = None, q: Optional[str] = None, field: str = 'id'):
     """Sirve filas del Excel de interpretaciones filtradas por cultivo y búsqueda"""
     
     # Determinar qué archivos leer

@@ -349,3 +349,93 @@ def predict_site(payload: SiteInput):
         raise
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Error en predicción: {e}")
+
+
+# -----------------------------
+# Endpoint para Interpretaciones (Excel estático en servidor)
+# -----------------------------
+DB_DIR = BASE / 'db'
+
+# Mapeo de cultivos a archivos
+INTERPRETATION_FILES = {
+    'Sandía': DB_DIR / 'interpretaciones_sandia.xlsx',
+    'Maíz': DB_DIR / 'interpretaciones_maiz.xlsx'
+}
+
+@app.get('/interpretation/rows')
+def get_interpretation_rows(cultivo: str | None = None, q: str | None = None, field: str = 'id'):
+    """Sirve filas del Excel de interpretaciones filtradas por cultivo y búsqueda"""
+    
+    # Determinar qué archivos leer
+    files_to_read = []
+    if cultivo and cultivo != 'Todos':
+        # Leer solo el archivo del cultivo especificado
+        file_path = INTERPRETATION_FILES.get(cultivo)
+        if file_path and file_path.exists():
+            files_to_read.append((cultivo, file_path))
+        elif file_path:
+            raise HTTPException(status_code=404, detail=f'Archivo de interpretaciones para {cultivo} no encontrado')
+    else:
+        # Leer todos los archivos disponibles
+        for cult, file_path in INTERPRETATION_FILES.items():
+            if file_path.exists():
+                files_to_read.append((cult, file_path))
+    
+    if not files_to_read:
+        raise HTTPException(status_code=404, detail='No se encontraron archivos de interpretaciones')
+
+    try:
+        # Leer y combinar todos los archivos necesarios
+        all_rows = []
+        for cult, file_path in files_to_read:
+            df = pd.read_excel(file_path)
+            # normalizar nombres de columnas
+            cols_map = {c.lower().strip(): c for c in df.columns}
+            def find_col(cands):
+                for cand in cands:
+                    k = cand.lower()
+                    if k in cols_map:
+                        return cols_map[k]
+                return None
+
+            colID = find_col(['id', 'ID', 'Id', 'id del gen', 'ID del gen'])
+            colNombre = find_col(['nombre', 'name', 'Nombre'])
+            colFunc = find_col(['funcion', 'función', 'function', 'Función'])
+
+            if colID is None or colNombre is None or colFunc is None:
+                raise HTTPException(status_code=400, detail=f'El archivo de {cult} no contiene las columnas necesarias (ID, Nombre, Funcion)')
+
+            # Crear filas con el cultivo asociado
+            for _, row in df.iterrows():
+                all_rows.append({
+                    'id': str(row[colID]).strip() if pd.notna(row[colID]) else '',
+                    'nombre': str(row[colNombre]).strip() if pd.notna(row[colNombre]) else '',
+                    'funcion': str(row[colFunc]).strip() if pd.notna(row[colFunc]) else '',
+                    'cultivo': cult
+                })
+        
+        # Convertir a DataFrame para facilitar filtrado
+        df2 = pd.DataFrame(all_rows)
+        
+        # Obtener cultivos disponibles
+        cultivos_disponibles = ['Todos'] + [cult for cult, fp in INTERPRETATION_FILES.items() if fp.exists()]
+
+        # aplicar búsqueda q sobre campo específico
+        if q and len(df2) > 0:
+            ql = str(q).lower()
+            if field not in ['id', 'nombre', 'funcion', 'cultivo']:
+                field = 'id'
+            df2 = df2[df2[field].str.lower().str.contains(ql, na=False, regex=False)]
+
+        # devolver como lista de dicts
+        rows = df2.to_dict(orient='records') if len(df2) > 0 else []
+        return {
+            'rows': rows,
+            'total': len(rows),
+            'cultivos': cultivos_disponibles
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'Error al leer el Excel: {e}')

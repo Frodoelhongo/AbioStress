@@ -12,61 +12,61 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-echo -e "${YELLOW}1️⃣  Verificando archivos de Sandía...${NC}"
+echo -e "${YELLOW}1️  Verificando archivos de Sandía...${NC}"
 if [ -f "backend/models/red3_site_meta_20251018_151143.json" ] && \
    [ -f "backend/models/red3_site_student_20251018_151143.pt" ] && \
    [ -f "backend/models/red3_line_gene_panel.json" ]; then
-    echo -e "${GREEN}   ✅ Archivos de Sandía presentes${NC}"
+    echo -e "${GREEN}    Archivos de Sandía presentes${NC}"
 else
-    echo -e "${RED}   ❌ Faltan archivos de Sandía${NC}"
+    echo -e "${RED}    Faltan archivos de Sandía${NC}"
 fi
 
 echo ""
-echo -e "${YELLOW}2️⃣  Verificando archivos de Maíz...${NC}"
+echo -e "${YELLOW}2️  Verificando archivos de Maíz...${NC}"
 if [ -f "backend/models/maiz_site_meta_20251111_132606.json" ] && \
    [ -f "backend/models/maiz_site_student_20251111_132606.pt" ] && \
    [ -f "backend/models/maiz_line_gene_panel.json" ]; then
-    echo -e "${GREEN}   ✅ Archivos de Maíz presentes${NC}"
+    echo -e "${GREEN}    Archivos de Maíz presentes${NC}"
 else
-    echo -e "${RED}   ❌ Faltan archivos de Maíz${NC}"
+    echo -e "${RED}    Faltan archivos de Maíz${NC}"
 fi
 
 echo ""
-echo -e "${YELLOW}3️⃣  Verificando archivos de preprocesamiento...${NC}"
+echo -e "${YELLOW}3️  Verificando archivos de preprocesamiento...${NC}"
 if [ -f "backend/preproc/red3_scaler_20251018_145912.joblib" ] && \
    [ -f "backend/preproc/maiz_scaler_20251111_131028.joblib" ]; then
-    echo -e "${GREEN}   ✅ Escalers cargados${NC}"
+    echo -e "${GREEN}    Escalers cargados${NC}"
 else
-    echo -e "${RED}   ❌ Faltan escalers${NC}"
+    echo -e "${RED}    Faltan escalers${NC}"
 fi
 
 echo ""
-echo -e "${YELLOW}4️⃣  Verificando código TypeScript...${NC}"
+echo -e "${YELLOW}4️  Verificando código TypeScript...${NC}"
 if grep -q "SUPPORTED_CROPS.*Maíz" "quasar-project/src/services/gene-model.ts"; then
-    echo -e "${GREEN}   ✅ Soporte para Maíz en gene-model.ts${NC}"
+    echo -e "${GREEN}    Soporte para Maíz en gene-model.ts${NC}"
 else
-    echo -e "${RED}   ❌ Maíz no configurado en gene-model.ts${NC}"
+    echo -e "${RED}    Maíz no configurado en gene-model.ts${NC}"
 fi
 
 echo ""
-echo -e "${YELLOW}5️⃣  Verificando componente Vue...${NC}"
+echo -e "${YELLOW}5️  Verificando componente Vue...${NC}"
 if grep -q "cultivosDisponibles" "quasar-project/src/components/GenesPrediction.vue"; then
-    echo -e "${GREEN}   ✅ Componente actualizado${NC}"
+    echo -e "${GREEN}    Componente actualizado${NC}"
 else
-    echo -e "${RED}   ❌ Componente no actualizado${NC}"
+    echo -e "${RED}    Componente no actualizado${NC}"
 fi
 
 echo ""
-echo -e "${YELLOW}6️⃣  Cargando backend...${NC}"
+echo -e "${YELLOW}6️  Cargando backend...${NC}"
 cd backend && python3 -c "
 import app
-print('   ✅ Cultivos:', list(app.CULTIVOS_CONFIG.keys()))
-print('   ✅ Modelos:', list(app.MODELOS.keys()))
-" 2>&1 | grep "✅"
+print('    Cultivos:', list(app.CULTIVOS_CONFIG.keys()))
+print('    Modelos:', list(app.MODELOS.keys()))
+" 2>&1 | grep "Cultivos: \|Modelos:" && echo -e "${GREEN}    Backend cargado correctamente${NC}" || echo -e "${RED}    Error al cargar el backend${NC}"
 
 echo ""
 echo -e "${GREEN}╔════════════════════════════════════════════════════════════════╗${NC}"
-echo -e "${GREEN}║        ✨ TODAS LAS VERIFICACIONES COMPLETADAS ✨               ║${NC}"
+echo -e "${GREEN}║         TODAS LAS VERIFICACIONES COMPLETADAS                ║${NC}"
 echo -e "${GREEN}╚════════════════════════════════════════════════════════════════╝${NC}"
 echo ""
 echo -e "Para probar el backend:"

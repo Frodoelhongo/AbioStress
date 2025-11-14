@@ -234,15 +234,14 @@ async function submitForm() {
             : String(g)
       ),
     }
-  } // <-- Add this closing brace for submitForm
-  catch (err: unknown) {
+  } catch (err: unknown) {
     if (err instanceof UnsupportedCropError) {
-      errorMsg.value = `Modelo no disponible para ${err.cultivo}.`;
+      errorMsg.value = `Modelo no disponible para ${err.cultivo}.`
     } else {
-      errorMsg.value = 'Error al obtener la predicción. Intente nuevamente más tarde.';
+      errorMsg.value = 'Error al obtener la predicción. Intente nuevamente más tarde.'
     }
   } finally {
-    loading.value = false;
+    loading.value = false
   }
 }
 </script>

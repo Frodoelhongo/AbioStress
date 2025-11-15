@@ -26,7 +26,7 @@
       <template v-slot:top-left>
         <div class="q-gutter-sm">
           <template v-for="specie in species" :key="specie">
-            <q-radio v-model="selectedSpecies" :val="specie" :label="specie" />
+            <q-radio v-model="selectedSpecies" :val="specie" :label="speciesDisplayNames[specie] || specie" />
           </template>
         </div>
       </template>
@@ -49,6 +49,15 @@ import { rows, columns } from 'src/services/data';
 import { ref, computed } from 'vue';
 
 const filter = ref('');
+
+// Mapeo de nombres científicos a nombres comunes
+const speciesDisplayNames: Record<string, string> = {
+  'Zea Mays': 'Maíz',
+  'Sorghum bicolor': 'Sorgo',
+  'Gossypium hirsutum': 'Algodón',
+  'Citrullus lanatus': 'Sandía',
+  'Solanum lycopersicum': 'Tomate'
+};
 
 const species = rows.reduce((uniqueSpecies, thisSpecies) => {
   if (!uniqueSpecies.find((val) => thisSpecies.especie === val)) {

@@ -1,25 +1,22 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header >
-      <q-toolbar style="background: #c2d47c; color: #000">
-        <!--q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" /-->
-
-        <img :src="abioStressTwasLogo" alt="Logo" width="50" height="50" />
-        <q-toolbar-title class="text-bold">AbioStress-TWAS</q-toolbar-title>
+    <q-header elevated class="header-custom">
+      <q-toolbar style="background: #192e06; color: white; min-height: 70px; padding: 0 40px;">
         <q-tabs
           v-model="tab"
-          dense
-          class="link"
-          active-class="active-link"
-          align="justify"
-          narrow-indicator
+          class="nav-tabs"
+          active-class="active-tab"
+          indicator-color="transparent"
         >
-          <q-tab v-for="link in navLinks"
-          :key="link.id"
-          :name="link.id" :label="link.label" />
+          <q-tab
+            v-for="link in navLinks"
+            :key="link.id"
+            :name="link.id"
+            :label="link.label"
+            class="nav-tab-item"
+          />
         </q-tabs>
       </q-toolbar>
-      <hr style="border: 3px solid #5b672d; padding: 0; margin: 0;"/>
     </q-header>
 
     <!--q-drawer v-model="leftDrawerOpen" show-if-above bordered>
@@ -37,27 +34,46 @@
 </template>
 
 <script setup lang="ts">
-
-//import bioremLogo from 'src/assets/biorem-square.png';
-import abioStressTwasLogo from 'src/assets/abio-stress-twas-logo.png';
 import { ref } from 'vue';
 
 const navLinks = [
   { id: 'home', label: 'INICIO' },
   { id: 'database', label: 'BASE DE DATOS' },
-  { id: 'gene-prediction', label: 'PREDICCIÓN DE GENES' },
+  { id: 'gene-prediction', label: 'PREDICCIÓN DE LÍNEAS RESILIENTES' },
+  { id: 'interpretation', label: 'INTERPRETACIÓN DE RESULTADOS' },
   { id: 'about-us', label: 'SOBRE NOSOTROS' }
 ];
 
 const tab = ref('home');
 </script>
+
 <style scoped>
-.active-link {
-  font-weight: bold;
+.header-custom {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
-.link {
-  color: #000;
-  text-decoration: none;
-  font-size: large;
+
+.nav-tabs {
+  flex: 1;
+  max-width: 100%;
+}
+
+.nav-tab-item {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 0 20px;
+  min-height: 70px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-tab-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.active-tab {
+  background-color: rgba(255, 255, 255, 0.15);
+  font-weight: 700;
 }
 </style>

@@ -48,8 +48,8 @@
                     </div>
                     <div class="col-8 flex column justify-center">
                       <ul class="stress-list-compact">
-                        <li><strong>Falta de agua</strong> (sequía)</li>
-                        <li><strong>Salinidad</strong> (exceso de sal en el suelo)</li>
+                        <li><strong>Sequía</strong></li>
+                        <li><strong>Salinidad</strong></li>
                         <li><strong>Temperaturas extremas</strong> (calor o frío)</li>
                         <li><strong>Suelos con metales pesados</strong></li>
                       </ul>
@@ -69,7 +69,7 @@
                   <div class="crops-grid-compact">
                     <div class="crop-item-compact">
                       <div class="crop-circle-compact">
-                        <img src="/images/tomate.png" class="crop-img-compact" />
+                        <img src="/images/TomateChat.png" class="crop-img-compact" />
                       </div>
                       <p class="crop-label-compact">Tomate</p>
                     </div>
@@ -87,7 +87,7 @@
                     </div>
                     <div class="crop-item-compact">
                       <div class="crop-circle-compact">
-                        <img src="/images/watermelon.jpg" class="crop-img-compact" />
+                        <img src="/images/SandiaChat.png" class="crop-img-compact" />
                       </div>
                       <p class="crop-label-compact">Sandía</p>
                     </div>

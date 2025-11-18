@@ -1,0 +1,547 @@
+{
+  "CCRI 425": [
+    {
+      "gene": "Gh_A01G0001",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0002",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0003",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0004",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0005",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0006",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0007",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0008",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0009",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0010",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0011",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0012",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0013",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0014",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0015",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0016",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0017",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0018",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0019",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0020",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0021",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0022",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    }
+  ],
+  "CCRI 49": [
+    {
+      "gene": "Gh_A01G0001",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0002",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0003",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0004",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0005",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0006",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0007",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0008",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0009",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0010",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0011",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0012",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0013",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0014",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0015",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0016",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0017",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0018",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0019",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0020",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0021",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0022",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    }
+  ],
+  "Maxxa": [
+    {
+      "gene": "Gh_A01G0001",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0002",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0003",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0004",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0005",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0006",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0007",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0008",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0009",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0010",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0011",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0012",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0013",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0014",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0015",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0016",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0017",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0018",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0019",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0020",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0021",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0022",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    }
+  ],
+  "NDM8": [
+    {
+      "gene": "Gh_A01G0001",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0002",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0003",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0004",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0005",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0006",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0007",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0008",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0009",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0010",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0011",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0012",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0013",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0014",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0015",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0016",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0017",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0018",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0019",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    }
+  ],
+  "TM-1": [
+    {
+      "gene": "Gh_A01G0001",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0002",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0003",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0004",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0005",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0006",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0007",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0008",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0009",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0010",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0011",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0012",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0013",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0014",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0015",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0016",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0017",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0018",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0019",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0020",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0021",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    },
+    {
+      "gene": "Gh_A01G0022",
+      "score": 0.0,
+      "sample_id": "SRR24959060"
+    }
+  ]
+}

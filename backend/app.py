@@ -61,12 +61,19 @@ def _load_model_config(prefix: str):
         with open(panel_path, "r", encoding="utf-8") as f:
             gene_panel = json.load(f)
         
-        cols = json.loads(Path(cols_path).read_text(encoding="utf-8"))
-        num_cols = cols.get("numeric", [])
-        cat_cols = cols.get("categorical", [])
-        
+        # Cargar scaler y ohe PRIMERO
         scaler = joblib.load(scaler_path)
         ohe = joblib.load(ohe_path)
+        
+        # Obtener las columnas DIRECTAMENTE del scaler para evitar problemas de encoding
+        num_cols = list(scaler.feature_names_in_) if hasattr(scaler, 'feature_names_in_') else []
+        
+        # Para categóricas, intentar desde el ohe o desde el archivo
+        if hasattr(ohe, 'feature_names_in_'):
+            cat_cols = list(ohe.feature_names_in_)
+        else:
+            cols = json.loads(Path(cols_path).read_text(encoding="utf-8"))
+            cat_cols = cols.get("categorical", [])
         
         # Dimensiones
         try:
@@ -102,7 +109,7 @@ def _load_model_config(prefix: str):
 
 # --- Cargar configuraciones de cultivos disponibles ---
 CULTIVOS_CONFIG = {}
-CULTIVOS_DISPONIBLES = ["red3", "maiz"]  # prefijos de archivos
+CULTIVOS_DISPONIBLES = ["red3", "maiz", "gh"]  # prefijos de archivos
 
 for cultivo_prefix in CULTIVOS_DISPONIBLES:
     try:
@@ -117,6 +124,7 @@ if not CULTIVOS_CONFIG:
 CULTIVO_MAP = {
     "Sandía": "red3",
     "Maíz": "maiz",
+    "Algodón": "gh",
 }
 
 # Para compatibilidad con código existente, usar red3 por defecto
@@ -209,57 +217,88 @@ def preprocess(inp: SiteInput, cultivo_prefix: str) -> torch.Tensor:
     # 1) Convierto el payload a dict simple
     d = inp.dict()
 
-    # 2) Mapa de alias: de tus campos → nombres con los que se entrenó el scaler
-    ALIAS = {
-        "temperatura": ["Temperatura (°C)", "Temp (°C)"],
-        "humedadRelativa": ["Humedad Relativa (%)"],
-        "intensidadLuminica": ["Intensidad Lumínica (µmol m⁻² s⁻¹)"],
-        "pH": ["pH del Suelo"],
-        "humedadSuelo": ["Humedad del suelo (%)"],
-        "carbonoOrganico": ["Carbono organico total (%)"],
-        "nitrogenoTotal": ["Nitrogeno total (kg/ha)"],
-        "fosforoSoluble": ["Fosforo soluble (mg/kg)"],
-        "aguaPorcentual": ["PEG/Agua (%)"],
-        "nacl": ["NaCl (mM)"],
-        "cd": ["Cd (mg/L)"],
-        "al": ["Al (mol/L)"],
-    }
-
-    # 3) Dummies de textura
-    TEXTURE_COLUMNS = ["Arenoso", "Franco-arenoso", "Limoso"]
-
-    # 4) Construyo una fila con TODAS las columnas numéricas
+    # 2) Construyo una fila con TODAS las columnas numéricas inicializadas a 0
     row = {col: 0.0 for col in num_cols}
+    
+    # 3) Identificar columnas de textura (dummies) en el modelo
+    TEXTURE_COLUMNS = [c for c in num_cols if any(x in c for x in ["Franco", "Arenoso", "Arcilloso", "Limoso"])]
 
-    # 5) Relleno las columnas mapeadas por alias
-    for short_key, target_cols in ALIAS.items():
+    # 4) Mapeo inteligente usando coincidencia parcial para campos numéricos
+    # Esto evita problemas de encoding de caracteres especiales
+    field_mapping = {
+        "temperatura": ["temperatura", "temp"],
+        "humedadRelativa": ["humedad relativa"],
+        "intensidadLuminica": ["intensidad lumin"],
+        "pH": ["ph del suelo"],
+        "humedadSuelo": ["humedad del suelo"],
+        "carbonoOrganico": ["carbono organico"],
+        "nitrogenoTotal": ["nitrogeno total"],
+        "fosforoSoluble": ["fosforo soluble"],
+        "aguaPorcentual": ["peg", "agua"],
+        "nacl": ["nacl"],
+        "cd": ["cd ("],
+        "al": ["al ("],
+    }
+    
+    # 5) Rellenar valores numéricos usando coincidencia de patrones
+    for short_key, patterns in field_mapping.items():
         if short_key in d:
             val = d[short_key]
             try:
                 val = float(val)
             except Exception:
                 val = 0.0
-            for col in target_cols:
-                if col in row:
-                    row[col] = val
+            
+            # Buscar y llenar todas las columnas que coincidan
+            for col in num_cols:
+                if col in TEXTURE_COLUMNS:
+                    continue  # Las texturas se manejan por separado
+                    
+                col_lower = col.lower()
+                for pattern in patterns:
+                    if pattern.lower() in col_lower:
+                        row[col] = val
+                        break
 
-    # 6) Mapeo de textura
+    # 6) Mapeo de textura - normalizar el input del usuario
     tex = str(d.get("texturaSuelo", "")).strip().lower()
-    TEX_MAP = {
-        "arenoso": "Arenosa",
-        "franco arenoso": "Franco-arenosa",
-        "franco": "Franco",
-        "franco arcilloso": "Franco Arcilloso",
-        "arcilloso": "Arcilloso",
-        "limoso": "Limosos",
+    
+    # Mapeo flexible de textura del usuario a las columnas del modelo
+    # El modelo puede tener variaciones como "Franco-arenoso" vs "Arenoso"
+    tex_normalized = tex.replace(" ", "-").lower()
+    
+    # Mapear entrada del usuario a nombres que pueden estar en el modelo
+    TEX_VARIANTS = {
+        "arenoso": ["Arenoso", "Arenosa"],
+        "franco-arenoso": ["Franco-arenoso", "Franco-arenosa", "Franco Arenoso"],
+        "franco": ["Franco"],
+        "franco-arcilloso": ["Franco-arcilloso", "Franco Arcilloso"],
+        "arcilloso": ["Arcilloso", "Arcillosa"],
+        "limoso": ["Limoso", "Limosa", "Limosos"],
+        "franco-limoso": ["Franco-limoso", "Franco Limoso"],
     }
-    tex_col = TEX_MAP.get(tex, None)
+    
+    # Encontrar qué columna del modelo activar
+    matched_col = None
+    for user_key, model_variants in TEX_VARIANTS.items():
+        if tex_normalized == user_key:
+            # Buscar cuál de las variantes existe en las columnas del modelo
+            for variant in model_variants:
+                for c in TEXTURE_COLUMNS:
+                    if variant.lower() == c.lower():
+                        matched_col = c
+                        break
+                if matched_col:
+                    break
+            break
+    
+    # Activar la columna correspondiente
     for c in TEXTURE_COLUMNS:
         if c in row:
-            row[c] = 1.0 if (tex_col == c) else 0.0
+            row[c] = 1.0 if (matched_col and c == matched_col) else 0.0
 
-    # 7) Crea DataFrame
-    df_num = pd.DataFrame([[row[c] for c in num_cols]], columns=num_cols)
+    # 7) Crea DataFrame CON LOS NOMBRES EXACTOS DE LAS COLUMNAS
+    df_num = pd.DataFrame([row], columns=num_cols)
 
     # 8) Categóricas
     if cat_cols:

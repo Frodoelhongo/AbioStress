@@ -1,0 +1,24 @@
+{
+  "saved_at": "20251116_192753",
+  "task": "classification",
+  "class_names": [
+    "CCRI 425",
+    "CCRI 49",
+    "Maxxa",
+    "NDM8",
+    "TM-1"
+  ],
+  "n_classes": 5,
+  "input_dim": 22,
+  "alpha": 0.5,
+  "T": 2.0,
+  "preproc": {
+    "ohe": "backend/preproc/gh_ohe_20251116_192711.joblib",
+    "scaler": "backend/preproc/gh_scaler_20251116_192711.joblib",
+    "columns": "backend/preproc/gh_columns_20251116_192711.json"
+  },
+  "plots": {
+    "confusion": "backend/features/gh_confusion_20251116_192753.png",
+    "loss": "backend/features/gh_loss_20251116_192753.png"
+  }
+}

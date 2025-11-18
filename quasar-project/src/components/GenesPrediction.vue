@@ -65,16 +65,9 @@
           <div class="text-h5 text-center col-grow">Resultados de la Predicción</div>
         </div>
 
-        <!-- TABS (Interpretación inicia oculta) -->
-        <q-tabs v-model="tab" class="text-primary q-mb-sm">
-          <q-tab name="pred" label="Predicción" />
-          <q-tab v-if="showInterp" name="interp" label="Interpretación" />
-        </q-tabs>
-        <q-separator />
+        <!-- Resultados de predicción -->
 
-        <q-tab-panels v-model="tab" animated>
-          <!-- PANEL: Predicción -->
-          <q-tab-panel name="pred">
+        <div class="q-mt-md">
             <div class="q-pa-md" style="border: 1px solid #ccc; border-radius: 8px; min-height: 200px">
               <template v-if="errorMsg">
                 <q-banner class="bg-red-2 text-red-10" dense>{{ errorMsg }}</q-banner>
@@ -115,28 +108,13 @@
                     </q-list>
                   </div>
                 </div>
-
-                <!-- ⬇ Botón DEBAJO de los resultados -->
-                <div class="q-mt-md">
-                  <q-btn
-                    label="Interpretación de resultados"
-                    color="secondary"
-                    @click="openInterpretation"
-                  />
-                </div>
               </template>
 
               <template v-else>
                 <p class="text-center text-grey">Los resultados aparecerán aquí</p>
               </template>
             </div>
-          </q-tab-panel>
-
-          <!-- PANEL: Interpretación (misma página, oculto hasta abrir) -->
-          <q-tab-panel v-if="showInterp" name="interp">
-            <InterpretationPanel :result="result" :excelUrl="'/db/AbioStress-db.xlsx'"/>
-          </q-tab-panel>
-        </q-tab-panels>
+        </div>
       </div>
     </template>
   </q-splitter>
@@ -150,7 +128,6 @@ import {
   SUPPORTED_CROPS,
   type GENE_MODEL_INPUTS,
 } from 'src/services/gene-model'
-import InterpretationPanel from 'components/InterpretationPanel.vue'
 
 const splitterModel = ref(50)
 const loading = ref(false)
@@ -161,9 +138,7 @@ const result = ref<null | {
   genes: Array<{ gene: string; score: number; stresses: string[] } | string>
 }>(null)
 
-// Tabs y visibilidad
-const tab = ref<'pred' | 'interp'>('pred')
-const showInterp = ref(false)
+// (Tabs removidas)
 
 // Cultivos disponibles
 const cultivosDisponibles = SUPPORTED_CROPS
@@ -173,27 +148,22 @@ function onCultivoChange() {
   // Por ahora no es necesario
 }
 
-function openInterpretation () {
-  showInterp.value = true
-  tab.value = 'interp'
-}
-
 // Form defaults
 const inputModelData = ref<GENE_MODEL_INPUTS>({
   cultivo: 'Sandía',
-  temperatura: 27,
-  humedadRelativa: 40,
-  intensidadLuminica: 800,
-  pH: 5,
-  humedadSuelo: 10,
+  temperatura: 25,
+  humedadRelativa: 50,
+  intensidadLuminica: 2300,
+  pH: 7.5,
+  humedadSuelo: 25,
   carbonoOrganico: 1.5,
-  nitrogenoTotal: 0.5,
-  fosforoSoluble: 0.5,
+  nitrogenoTotal: 0.15,
+  fosforoSoluble: 0.15,
   texturaSuelo: 'Franco Arenoso',
   aguaPorcentual: 10,
-  nacl: 1,
-  cd: 0.5,
-  al: 0.5,
+  nacl: 0,
+  cd: 0,
+  al: 0,
 })
 
 const num =

@@ -20,7 +20,7 @@
       row-key="name"
       no-data-label="No registros disponibles."
       no-results-label="No se encontraron registros coincidentes"
-      style="background: transparent; height: calc(100vh - 220px)"
+      style="background: rgba(255, 255, 255, 0.95); height: calc(100vh - 180px)"
       virtual-scroll
     >
       <template v-slot:top-left>
@@ -95,7 +95,9 @@ const filteredRows = computed(() => {
 
 .my-sticky-header-table
   /* height or max-height is important */
-  height: 310px
+  height: calc(100vh - 180px)
+  border-radius: 8px
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
 
   .q-table__top,
   .q-table__bottom,
@@ -106,8 +108,17 @@ const filteredRows = computed(() => {
   thead tr th
     position: sticky
     z-index: 1
+    white-space: normal
+    word-wrap: break-word
   thead tr:first-child th
     top: 0
+
+  tbody td
+    white-space: normal
+    word-wrap: break-word
+    max-width: 200px
+    text-align: center
+    vertical-align: middle
 
   /* this is when the loading indicator appears */
   &.q-table--loading thead tr:last-child th

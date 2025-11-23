@@ -4,7 +4,7 @@
   <q-splitter v-model="splitterModel" style="height: calc(100vh - 200px)">
     <!-- Izquierda: formulario -->
     <template v-slot:before>
-      <div class="q-pa-md">
+      <div class="q-pa-md" style="background: rgba(255, 255, 255, 0.95); border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)">
         <q-form class="q-gutter-md" @submit="submitForm">
           <!-- Crop selection -->
           <q-select
@@ -60,7 +60,7 @@
 
     <!-- Derecha: resultados + tabs -->
     <template v-slot:after>
-      <div class="q-pa-md">
+      <div class="q-pa-md" style="background: rgba(255, 255, 255, 0.95); border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)">
         <div class="row items-center justify-between q-mb-md">
           <div class="text-h5 text-center col-grow">Resultados de la Predicción</div>
         </div>
@@ -68,7 +68,7 @@
         <!-- Resultados de predicción -->
 
         <div class="q-mt-md">
-            <div class="q-pa-md" style="border: 1px solid #ccc; border-radius: 8px; min-height: 200px">
+            <div class="q-pa-md" style="background: rgba(255, 255, 255, 0.95); border: 1px solid #ccc; border-radius: 8px; min-height: 200px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)">
               <template v-if="errorMsg">
                 <q-banner class="bg-red-2 text-red-10" dense>{{ errorMsg }}</q-banner>
               </template>

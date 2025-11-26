@@ -133,7 +133,7 @@
   display: flex
   flex-direction: column
   gap: 8px
-  max-width: 550px
+  max-width: 650px
 
   .profile-row:nth-child(even) &
     margin-left: 0
@@ -148,7 +148,7 @@
   letter-spacing: 0.5px
 
 .profile-description
-  font-size: 15px
+  font-size: 17px
   font-weight: 400
   color: #444
   margin: 0

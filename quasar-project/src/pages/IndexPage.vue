@@ -111,12 +111,12 @@
     </q-tab-panel>
 
     <q-tab-panel name="interpretation" class="panel-with-background">
-      <interpretation-panel :result="null" />
+      <interpretation-panel :result="predictionResult" />
     </q-tab-panel>
 
     <q-tab-panel name="gene-prediction" class="panel-with-background">
       <section id="gene-prediction">
-        <genes-prediction />
+        <genes-prediction @prediction-updated="predictionResult = $event" />
       </section>
     </q-tab-panel>
 
@@ -127,7 +127,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, provide } from 'vue';
 import DbTable from 'src/components/DbTable.vue';
 import AboutUs from 'src/components/AboutUs.vue';
 import GenesPrediction from 'src/components/GenesPrediction.vue';
@@ -135,6 +135,16 @@ import InterpretationPanel from 'src/components/InterpretationPanel.vue';
 
 const selectedTab = defineModel();
 const currentSlide = ref('1');
+
+// Estado compartido para el resultado de la predicción
+const predictionResult = ref<{
+  predicted_line: string
+  probabilities: Record<string, number>
+  genes: Array<{ gene: string; score?: number; stresses?: string[] } | string>
+} | null>(null);
+
+// Proveer el resultado para que los componentes hijos puedan acceder
+provide('predictionResult', predictionResult);
 </script>
 
 <style scoped>

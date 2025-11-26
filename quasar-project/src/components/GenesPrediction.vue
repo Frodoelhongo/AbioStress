@@ -128,6 +128,14 @@ import {
   type GENE_MODEL_INPUTS,
 } from 'src/services/gene-model'
 
+const emit = defineEmits<{
+  'prediction-updated': [result: {
+    predicted_line: string
+    probabilities: Record<string, number>
+    genes: Array<{ gene: string; score: number; stresses: string[] } | string>
+  } | null]
+}>()
+
 const splitterModel = ref(50)
 const loading = ref(false)
 const errorMsg = ref<string | null>(null)
@@ -204,12 +212,14 @@ async function submitForm() {
             : String(g)
       ),
     }
+    emit('prediction-updated', result.value)
   } catch (err: unknown) {
     if (err instanceof UnsupportedCropError) {
       errorMsg.value = `Modelo no disponible para ${err.cultivo}.`
     } else {
       errorMsg.value = 'Error al obtener la predicción. Intente nuevamente más tarde.'
     }
+    emit('prediction-updated', null)
   } finally {
     loading.value = false
   }

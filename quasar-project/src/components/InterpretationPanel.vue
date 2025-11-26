@@ -24,6 +24,28 @@ const searchField = ref('id') // id, nombre, funcion
 const cultivoFilter = ref('Todos')
 const availableCultivos = ref<string[]>(['Todos'])
 
+// Clasificar líneas por probabilidad
+const highRecommendation = computed(() => {
+  if (!props.result?.probabilities) return []
+  return Object.entries(props.result.probabilities)
+    .filter(([, prob]) => prob > 0.8)
+    .sort((a, b) => b[1] - a[1])
+})
+
+const moderateRecommendation = computed(() => {
+  if (!props.result?.probabilities) return []
+  return Object.entries(props.result.probabilities)
+    .filter(([, prob]) => prob >= 0.2 && prob <= 0.8)
+    .sort((a, b) => b[1] - a[1])
+})
+
+const lowRecommendation = computed(() => {
+  if (!props.result?.probabilities) return []
+  return Object.entries(props.result.probabilities)
+    .filter(([, prob]) => prob < 0.2)
+    .sort((a, b) => b[1] - a[1])
+})
+
 // Genes de la predicción (para resaltar)
 const predictedGenes = computed(() => {
   if (!props.result?.genes) return new Set<string>()
@@ -97,12 +119,68 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="q-pa-md bg-grey-1 interpretation-panel">
-    <div class="text-h5 text-weight-bold text-primary q-mb-sm">
-      Interpretación de resultados
+  <div class="q-pa-md interpretation-panel">
+    <!-- Cuadro informativo para el agricultor -->
+    <div class="farmer-info-box q-mb-lg">
+      <p class="farmer-greeting">Estimado agricultor:</p>
+      <p class="farmer-text">
+        Esta herramienta utiliza ciencia de precisión para analizar las características de su suelo.
+        Hemos identificado las líneas de cultivo con mayor potencial de adaptación a sus condiciones específicas,
+        junto con los genes responsables de su resiliencia. Considere esta información como una guía técnica
+        para optimizar la selección de sus cultivos.
+      </p>
     </div>
 
-    <!-- Controles de filtrado y búsqueda -->
+    <!-- Cuadro de recomendaciones de líneas de cultivo -->
+    <div class="recommendations-box q-mb-lg">
+      <h3 class="recommendations-title">Líneas de Cultivo Recomendadas</h3>
+
+      <div class="recommendation-item">
+        <h4 class="recommendation-category high">ALTA RECOMENDACIÓN (Probabilidad >80%)</h4>
+        <p class="recommendation-line"><strong>Significado:</strong> Variedades ideales para sus condiciones de suelo</p>
+        <p class="recommendation-line"><strong>Ventaja:</strong> Alto potencial de rendimiento</p>
+        <p class="recommendation-line"><strong>Acción:</strong> Primera opción para la próxima siembra</p>
+        <div v-if="highRecommendation.length > 0" class="lines-list q-mt-sm">
+          <div v-for="[line, prob] in highRecommendation" :key="line" class="line-item">
+            <span class="line-name">{{ line }}</span>
+            <span class="line-prob">{{ (prob * 100).toFixed(1) }}%</span>
+          </div>
+        </div>
+        <p v-else class="no-lines">No hay líneas en esta categoría</p>
+      </div>
+
+      <div class="recommendation-item">
+        <h4 class="recommendation-category moderate">RECOMENDACIÓN MODERADA (Probabilidad 20-80%)</h4>
+        <p class="recommendation-line"><strong>Significado:</strong> Pueden crecer pero requieren manejo especializado</p>
+        <p class="recommendation-line"><strong>Ventaja:</strong> Opción viable si no hay disponibles las mejor adaptadas</p>
+        <p class="recommendation-line"><strong>Acción:</strong> Necesitan seguimiento técnico y ajustes en el manejo</p>
+        <div v-if="moderateRecommendation.length > 0" class="lines-list q-mt-sm">
+          <div v-for="[line, prob] in moderateRecommendation" :key="line" class="line-item">
+            <span class="line-name">{{ line }}</span>
+            <span class="line-prob">{{ (prob * 100).toFixed(1) }}%</span>
+          </div>
+        </div>
+        <p v-else class="no-lines">No hay líneas en esta categoría</p>
+      </div>
+
+      <div class="recommendation-item">
+        <h4 class="recommendation-category low">NO RECOMENDADO (Probabilidad &lt;20%)</h4>
+        <p class="recommendation-line"><strong>Significado:</strong> Baja adaptación a sus condiciones de suelo</p>
+        <p class="recommendation-line"><strong>Riesgo:</strong> Alta probabilidad de bajos rendimientos</p>
+        <p class="recommendation-line"><strong>Acción:</strong> Evitar sembrar para prevenir pérdidas</p>
+        <div v-if="lowRecommendation.length > 0" class="lines-list q-mt-sm">
+          <div v-for="[line, prob] in lowRecommendation" :key="line" class="line-item">
+            <span class="line-name">{{ line }}</span>
+            <span class="line-prob">{{ (prob * 100).toFixed(1) }}%</span>
+          </div>
+        </div>
+        <p v-else class="no-lines">No hay líneas en esta categoría</p>
+      </div>
+    </div>
+
+    <!-- Sección de tabla de interpretación -->
+    <div class="interpretation-table-section">
+      <!-- Controles de filtrado y búsqueda -->
     <div class="row items-center q-col-gutter-sm q-mb-md">
       <div class="col-12 col-md-3">
         <q-select
@@ -188,22 +266,161 @@ onMounted(() => {
         </template>
       </q-table>
     </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .text-primary { color: #506d2f; }
+.custom-table {
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 .custom-table thead tr {
   background-color: #a9bf6f;
   color: black;
   font-weight: bold;
 }
 .custom-table tbody tr:nth-child(even) { background-color: #f5f5f5; }
+.custom-table tbody tr { background-color: white; }
 
 .interpretation-panel {
   min-height: 60vh;
-  max-height: 85vh;
-  overflow: hidden;
+  max-height: none;
+  overflow-y: auto;
+}
+
+.farmer-info-box {
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 12px;
+  padding: 20px 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 850px;
+  margin: 0 auto 30px;
+}
+
+.interpretation-table-section {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+.farmer-greeting {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0 0 10px 0;
+}
+
+.farmer-text {
+  font-size: 16px;
+  font-weight: 400;
+  color: #444;
+  margin: 0;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.recommendations-box {
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 12px;
+  padding: 25px 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 850px;
+  margin: 0 auto 30px;
+}
+
+.recommendations-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.recommendation-item {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.recommendation-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.recommendation-category {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.recommendation-category.high {
+  background: #d4edda;
+  color: #155724;
+}
+
+.recommendation-category.moderate {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.recommendation-category.low {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.recommendation-line {
+  font-size: 15px;
+  font-weight: 400;
+  color: #444;
+  margin: 5px 0;
+  line-height: 1.5;
+}
+
+.lines-list {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  padding: 12px 15px;
+  margin-top: 10px;
+}
+
+.line-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.line-item:last-child {
+  border-bottom: none;
+}
+
+.line-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.line-prob {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1976d2;
+}
+
+.no-lines {
+  font-size: 14px;
+  color: #999;
+  font-style: italic;
+  margin: 10px 0 0 0;
 }
 .table-wrap {
   max-height: calc(85vh - 200px);

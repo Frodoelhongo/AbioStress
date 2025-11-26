@@ -23,6 +23,19 @@
             height="600px"
             :autoplay="15000"
           >
+            <template v-slot:control>
+              <q-carousel-control position="bottom-right" :offset="[18, 18]">
+                <q-btn
+                  push
+                  round
+                  dense
+                  color="grey-8"
+                  text-color="white"
+                  icon="first_page"
+                  @click="currentSlide = '1'"
+                />
+              </q-carousel-control>
+            </template>
             <!-- Slide 1: Bienvenida -->
             <q-carousel-slide name="1" class="q-pa-none">
               <div class="slide-background">

@@ -278,6 +278,13 @@ onMounted(() => {
       <p class="success-message">¡Que tenga una cosecha exitosa!</p>
     </div>
 
+    <!-- Cuadro introductorio a la tabla de genes -->
+    <div class="genes-intro-box q-mb-lg">
+      <p class="genes-intro-text">
+        A continuación se presentan los principales genes que permiten a esta variedad adaptarse exitosamente a las características de su suelo, trabajando en conjunto para garantizar un mejor rendimiento en su parcela.
+      </p>
+    </div>
+
     <!-- Sección de tabla de interpretación -->
     <div class="interpretation-table-section q-mt-xl">
       <!-- Controles de filtrado y búsqueda -->
@@ -785,6 +792,25 @@ onMounted(() => {
   color: #2e7d32;
   text-align: center;
   margin: 15px 0 0 0;
+}
+
+/* Cuadro introductorio a la tabla de genes */
+.genes-intro-box {
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 10px;
+  padding: 18px 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 95%;
+  margin: 0 auto 25px;
+}
+
+.genes-intro-text {
+  font-size: 15px;
+  font-weight: 400;
+  color: #444;
+  margin: 0;
+  line-height: 1.6;
+  text-align: center;
 }
 
 .table-wrap {

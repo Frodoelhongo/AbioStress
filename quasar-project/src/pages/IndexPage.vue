@@ -220,7 +220,7 @@ provide('predictionResult', predictionResult);
   background: rgba(255, 255, 255, 0.85);
   border-radius: 35px;
   padding: 25px 35px;
-  max-width: 750px;
+  max-width: 1000px;
   width: auto;
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.25);
 }
@@ -297,7 +297,7 @@ provide('predictionResult', predictionResult);
   align-items: center;
   gap: 30px;
   padding: 20px 10px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .crop-item-compact {

@@ -148,7 +148,7 @@ const currentSlide = ref('1');
 }
 
 .panel-with-background {
-  background: rgba(184, 201, 217, 0.85);
+  background: rgba(184, 201, 217, 0.35);
   min-height: calc(100vh - 70px);
 }
 

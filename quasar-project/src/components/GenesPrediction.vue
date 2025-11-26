@@ -1,10 +1,9 @@
 <template>
-  <div class="text-h4 text-center q-pa-md">Predicción de Genes</div>
 
-  <q-splitter v-model="splitterModel" style="height: calc(100vh - 200px)">
+  <q-splitter v-model="splitterModel" style="height: calc(100vh - 100px)">
     <!-- Izquierda: formulario -->
     <template v-slot:before>
-      <div class="q-pa-md" style="background: rgba(255, 255, 255, 0.95); border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)">
+      <div class="q-pa-md" style="background: rgba(255, 255, 255, 0.95); border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); height: 100%; overflow-y: auto">
         <q-form class="q-gutter-md" @submit="submitForm">
           <!-- Crop selection -->
           <q-select
@@ -60,7 +59,7 @@
 
     <!-- Derecha: resultados + tabs -->
     <template v-slot:after>
-      <div class="q-pa-md" style="background: rgba(255, 255, 255, 0.95); border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)">
+      <div class="q-pa-md" style="background: rgba(255, 255, 255, 0.95); border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); height: 100%; overflow-y: auto">
         <div class="row items-center justify-between q-mb-md">
           <div class="text-h5 text-center col-grow">Resultados de la Predicción</div>
         </div>
@@ -151,11 +150,11 @@ function onCultivoChange() {
 // Form defaults
 const inputModelData = ref<GENE_MODEL_INPUTS>({
   cultivo: 'Sandía',
-  temperatura: 25,
+  temperatura:25,
   humedadRelativa: 50,
-  intensidadLuminica: 2300,
-  pH: 7.5,
-  humedadSuelo: 25,
+  intensidadLuminica: 200,
+  pH: 6.5,
+  humedadSuelo: 30,
   carbonoOrganico: 1.5,
   nitrogenoTotal: 0.15,
   fosforoSoluble: 0.15,
@@ -165,6 +164,7 @@ const inputModelData = ref<GENE_MODEL_INPUTS>({
   cd: 0,
   al: 0,
 })
+
 
 const num =
   (min: number | null, max: number | null, msg = 'Fuera de rango') =>

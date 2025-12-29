@@ -109,33 +109,36 @@ def _load_model_config(prefix: str):
 
 # --- Cargar configuraciones de cultivos disponibles ---
 CULTIVOS_CONFIG = {}
-CULTIVOS_DISPONIBLES = ["red3", "maiz", "gh"]  # prefijos de archivos
+# Artefactos disponibles: sandia, tomate, maiz, gh
+CULTIVOS_DISPONIBLES = ["sandia", "tomate", "maiz", "gh"]  # prefijos de archivos
 
 for cultivo_prefix in CULTIVOS_DISPONIBLES:
     try:
         CULTIVOS_CONFIG[cultivo_prefix] = _load_model_config(cultivo_prefix)
     except Exception as e:
-        print(f"⚠️ No se pudo cargar {cultivo_prefix}: {e}")
+        print(f" No se pudo cargar {cultivo_prefix}: {e}")
 
 if not CULTIVOS_CONFIG:
     raise RuntimeError("No se pudo cargar ningún modelo de cultivo")
 
 # Mapeo de nombre amigable → prefix de archivo
 CULTIVO_MAP = {
-    "Sandía": "red3",
+    "Sandía": "sandia",
     "Maíz": "maiz",
     "Algodón": "gh",
+    # El prefijo 'tomate' contiene las artefactos para variedades de tomate
+    "Tomate": "tomate",
 }
 
 # Para compatibilidad con código existente, usar red3 por defecto
-META = CULTIVOS_CONFIG["red3"]["meta"]
-CLASS_NAMES = CULTIVOS_CONFIG["red3"]["class_names"]
-GENE_PANEL = CULTIVOS_CONFIG["red3"]["gene_panel"]
-COLS = {"numeric": CULTIVOS_CONFIG["red3"]["num_cols"], "categorical": CULTIVOS_CONFIG["red3"]["cat_cols"]}
+META = CULTIVOS_CONFIG["tomate"]["meta"]
+CLASS_NAMES = CULTIVOS_CONFIG["tomate"]["class_names"]
+GENE_PANEL = CULTIVOS_CONFIG["tomate"]["gene_panel"]
+COLS = {"numeric": CULTIVOS_CONFIG["tomate"]["num_cols"], "categorical": CULTIVOS_CONFIG["tomate"]["cat_cols"]}
 NUM_COLS = COLS.get("numeric", [])
 CAT_COLS = COLS.get("categorical", [])
-INPUT_DIM = CULTIVOS_CONFIG["red3"]["input_dim"]
-N_CLASSES = CULTIVOS_CONFIG["red3"]["n_classes"]
+INPUT_DIM = CULTIVOS_CONFIG["tomate"]["input_dim"]
+N_CLASSES = CULTIVOS_CONFIG["tomate"]["n_classes"]
 
 import torch.nn as nn
 
@@ -155,24 +158,61 @@ class StudentMLP(nn.Module):
         return self.net(x)
 
 def _load_model_any(path: Path, input_dim: int, n_classes: int) -> nn.Module:
-    """Carga un modelo PyTorch con las dimensiones especificadas"""
-    model = StudentMLP(input_dim, n_classes)
+    """Carga un modelo PyTorch con las dimensiones especificadas.
+
+    Si hay un mismatch en las dimensiones (por ejemplo, el checkpoint fue entrenado con
+    distinto número de features), intenta inferir el input_dim desde el state_dict
+    (peso de la primera capa) y reconstruir el modelo con esa dimensión.
+    """
     try:
         payload = torch.load(path, map_location="cpu")
-        if isinstance(payload, dict):
-            if "model_state_dict" in payload:
-                state_dict = payload["model_state_dict"]
-            elif "state_dict" in payload:
-                state_dict = payload["state_dict"]
-            else:
-                state_dict = payload
+    except Exception as e:
+        raise RuntimeError(f"No pude leer el checkpoint {path}: {e}")
+
+    # Si es TorchScript/nn.Module, devolverlo directamente
+    if not isinstance(payload, dict):
+        try:
+            payload.eval()
+            return payload
+        except Exception:
+            raise RuntimeError("El .pt no contiene ni TorchScript, ni state_dict reconocible.")
+
+    # Extraer state_dict
+    if "model_state_dict" in payload:
+        state_dict = payload["model_state_dict"]
+    elif "state_dict" in payload:
+        state_dict = payload["state_dict"]
+    else:
+        state_dict = payload
+
+    # Intentar cargar con el input_dim declarado primero
+    model = StudentMLP(input_dim, n_classes)
+    try:
+        model.load_state_dict(state_dict, strict=False)
+        model.eval()
+        return model
+    except Exception:
+        # Intentar inferir input_dim desde la forma del primer Linear layer en el state_dict
+        # Buscamos una clave como 'net.0.weight' o la primera weight que tenga shape[1]
+        inferred_in = None
+        for k, v in state_dict.items():
+            if k.endswith(".weight") and isinstance(v, torch.Tensor):
+                # v.shape == (out_features, in_features)
+                if v.ndim == 2:
+                    inferred_in = v.shape[1]
+                    break
+        if inferred_in is None:
+            raise RuntimeError(f"No pude inferir input_dim desde el checkpoint {path}")
+
+        # Reconstruir y volver a intentar
+        model = StudentMLP(int(inferred_in), n_classes)
+        try:
             model.load_state_dict(state_dict, strict=False)
             model.eval()
             return model
-    except Exception as e:
-        raise RuntimeError(f"No pude cargar state_dict desde {path}: {e}")
+        except Exception as e:
+            raise RuntimeError(f"Error cargando state_dict desde {path}: {e}")
 
-    raise RuntimeError("El .pt no contiene ni TorchScript, ni nn.Module, ni state_dict reconocible.")
 
 # Cargar modelos para cada cultivo
 MODELOS = {}
@@ -310,6 +350,29 @@ def preprocess(inp: SiteInput, cultivo_prefix: str) -> torch.Tensor:
     # 9) Escalado
     X_num = scaler.transform(df_num).astype(np.float32)
     X = np.hstack([X_num, X_cat]).astype(np.float32)
+
+    # Asegurar dimensión esperada por el modelo: si el modelo fue entrenado con más
+    # features que las que generamos con el preproc, rellenamos con ceros al final.
+    expected_dim = None
+    try:
+        model = MODELOS.get(cultivo_prefix)
+        if model is not None:
+            # StudentMLP tiene net[0] = Linear(in_dim, h1)
+            expected_dim = getattr(model.net[0], 'in_features', None)
+    except Exception:
+        expected_dim = None
+
+    if expected_dim is None:
+        expected_dim = config.get('input_dim')
+
+    if expected_dim is not None:
+        cur = int(X.shape[1])
+        if cur < int(expected_dim):
+            pad = int(expected_dim) - cur
+            X = np.hstack([X, np.zeros((1, pad), dtype=np.float32)])
+        elif cur > int(expected_dim):
+            # Si tenemos más features de las que el modelo espera, lanzar error claro
+            raise RuntimeError(f"El preprocesador generó {cur} features, pero el modelo espera {expected_dim}.")
 
     return torch.tensor(X, dtype=torch.float32)
 

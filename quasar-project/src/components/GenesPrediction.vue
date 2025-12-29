@@ -214,8 +214,13 @@ async function submitForm() {
     }
     emit('prediction-updated', result.value)
   } catch (err: unknown) {
+    // Mostrar errores explícitos si vienen del backend
+    // Axios errors tienen estructura err.response?.data?.detail
+    const anyErr = err as any
     if (err instanceof UnsupportedCropError) {
       errorMsg.value = `Modelo no disponible para ${err.cultivo}.`
+    } else if (anyErr && anyErr.response && anyErr.response.data && anyErr.response.data.detail) {
+      errorMsg.value = String(anyErr.response.data.detail)
     } else {
       errorMsg.value = 'Error al obtener la predicción. Intente nuevamente más tarde.'
     }

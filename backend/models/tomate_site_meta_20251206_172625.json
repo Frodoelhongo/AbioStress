@@ -12,12 +12,12 @@
   "alpha": 0.5,
   "T": 2.0,
   "preproc": {
-    "ohe": "F:\\NN_SL\\preproc\\red3_ohe_20251206_171239.joblib",
-    "scaler": "F:\\NN_SL\\preproc\\red3_scaler_20251206_171239.joblib",
-    "columns": "F:\\NN_SL\\preproc\\red3_columns_20251206_171239.json"
+    "ohe": "backend/preproc/tomate_ohe_20251018_145912.joblib",
+    "scaler": "backend/preproc/tomate_scaler_20251018_145912.joblib",
+    "columns": "backend/preproc/tomate_columns_20251018_145912.json"
   },
   "plots": {
-    "confusion": "F:\\NN_SL\\features\\red3_confusion_20251206_172625.png",
-    "loss": "F:\\NN_SL\\features\\red3_loss_20251206_172625.png"
+    "confusion": "backend/features/tomate_confusion_20251206_172625.png",
+    "loss": "backend/features/tomate_loss_20251206_172625.png"
   }
 }

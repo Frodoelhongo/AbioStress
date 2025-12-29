@@ -371,8 +371,11 @@ def preprocess(inp: SiteInput, cultivo_prefix: str) -> torch.Tensor:
             pad = int(expected_dim) - cur
             X = np.hstack([X, np.zeros((1, pad), dtype=np.float32)])
         elif cur > int(expected_dim):
-            # Si tenemos más features de las que el modelo espera, lanzar error claro
-            raise RuntimeError(f"El preprocesador generó {cur} features, pero el modelo espera {expected_dim}.")
+            # Si tenemos más features de las que el modelo espera, recortamos al tamaño esperado
+            trim = cur - int(expected_dim)
+            X = X[:, :int(expected_dim)]
+            # Aviso en stdout para depuración ligera
+            print(f"Warning: preprocesador generó {cur} features; recortando {trim} columnas para coincidir con expected {expected_dim}.")
 
     return torch.tensor(X, dtype=torch.float32)
 

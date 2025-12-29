@@ -1,404 +1,607 @@
 {
-  "Crimson Sweet": [
+  "Alisa Craig": [
     {
-      "gene": "Cla97C10G186180",
-      "score": 0.026683051,
-      "contrib_max": 46.16517639160156,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc12g044890.2",
+      "score": 0.0013140799,
+      "contrib_max": 0.0555876530706882,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C05G092170",
-      "score": 0.02622246,
-      "contrib_max": 46.127254486083984,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc09g030390.3.12",
+      "score": 0.0011639302,
+      "contrib_max": 0.0553218536078929,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C04G073000",
-      "score": 0.02630425,
-      "contrib_max": 45.54338836669922,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc04g077280.3.3",
+      "score": 0.0012379838,
+      "contrib_max": 0.0529890768229961,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C03G059710",
-      "score": 0.025722986,
-      "contrib_max": 44.78433990478516,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc12g008470.2.1",
+      "score": 0.0012345533,
+      "contrib_max": 0.0529483184218406,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C06G113770",
-      "score": 0.026181381,
-      "contrib_max": 44.17958068847656,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc02g083750.1",
+      "score": 0.0012029985,
+      "contrib_max": 0.0517748035490512,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C11G213830",
-      "score": 0.024443338,
-      "contrib_max": 43.98350524902344,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc09g031785.1",
+      "score": 0.0011898032,
+      "contrib_max": 0.0516632050275802,
+      "sample_id": "SRR15111742.SRA"
     },
     {
-      "gene": "Cla97C01G014280",
-      "score": 0.026523504,
-      "contrib_max": 43.74760437011719,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc11g007560.2",
+      "score": 0.0011261159,
+      "contrib_max": 0.0515951812267303,
+      "sample_id": "SRR7652571"
     },
     {
-      "gene": "Cla97C11G207000",
-      "score": 0.024708861,
-      "contrib_max": 43.58030700683594,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc11g063620.2.20",
+      "score": 0.0011166323,
+      "contrib_max": 0.0515661910176277,
+      "sample_id": "SRR15111742.SRA"
     },
     {
-      "gene": "Cla97C09G178050",
-      "score": 0.024752818,
-      "contrib_max": 43.15277862548828,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc02g083610.3.3",
+      "score": 0.0011023886,
+      "contrib_max": 0.0511148646473884,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C02G028110",
-      "score": 0.024641145,
-      "contrib_max": 43.08216094970703,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc02g072130.3.2",
+      "score": 0.0012384793,
+      "contrib_max": 0.0510833114385604,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C05G092030",
-      "score": 0.025665965,
-      "contrib_max": 42.97868347167969,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc04g080140.3.3",
+      "score": 0.0011903348,
+      "contrib_max": 0.0510325208306312,
+      "sample_id": "SRR15111742.SRA"
     },
     {
-      "gene": "Cla97C09G178630",
-      "score": 0.02572552,
-      "contrib_max": 42.95912170410156,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc10g083590.2.6",
+      "score": 0.0011229101,
+      "contrib_max": 0.0509906411170959,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C08G159240",
-      "score": 0.025615688,
-      "contrib_max": 42.33131790161133,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc02g069160.3.7",
+      "score": 0.0011235558,
+      "contrib_max": 0.0505285710096359,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C03G061750",
-      "score": 0.02512316,
-      "contrib_max": 42.179229736328125,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc01g088610.3.4",
+      "score": 0.0011454624,
+      "contrib_max": 0.0504664853215217,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C01G014250",
-      "score": 0.025043063,
-      "contrib_max": 41.98370742797852,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc02g093870.3.3",
+      "score": 0.0012018023,
+      "contrib_max": 0.050463281571865,
+      "sample_id": "SRR15111742.SRA"
     },
     {
-      "gene": "Cla97C05G092160",
-      "score": 0.024249766,
-      "contrib_max": 41.563995361328125,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc12g011310.2.1",
+      "score": 0.0011960713,
+      "contrib_max": 0.0502840466797351,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C03G065910",
-      "score": 0.0249588,
-      "contrib_max": 41.08165740966797,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc03g123700.3.5",
+      "score": 0.00106355,
+      "contrib_max": 0.0502134189009666,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C01G012000",
-      "score": 0.025239782,
-      "contrib_max": 41.03749465942383,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc12g005760.2.2",
+      "score": 0.0011777873,
+      "contrib_max": 0.0501632019877433,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C06G114310",
-      "score": 0.025261188,
-      "contrib_max": 41.00235748291016,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc12g015790.1",
+      "score": 0.0011409988,
+      "contrib_max": 0.0501520037651062,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C09G181290",
-      "score": 0.024713026,
-      "contrib_max": 40.98912048339844,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc08g082355.1.5",
+      "score": 0.0011980878,
+      "contrib_max": 0.0501280575990676,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C06G115010",
-      "score": 0.025709875,
-      "contrib_max": 40.9456901550293,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc08g065360.3.5",
+      "score": 0.0011349926,
+      "contrib_max": 0.0499064438045024,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C03G056520",
-      "score": 0.024874114,
-      "contrib_max": 40.58807373046875,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc00g022090.2.1",
+      "score": 0.0011556044,
+      "contrib_max": 0.0498738922178745,
+      "sample_id": "SRR7652571"
     },
     {
-      "gene": "Cla97C06G120350",
-      "score": 0.024231749,
-      "contrib_max": 40.57032012939453,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc03g121260.3.12",
+      "score": 0.0011241783,
+      "contrib_max": 0.0498162060976028,
+      "sample_id": "SRR7652571"
     },
     {
-      "gene": "Cla97C05G089680",
-      "score": 0.024952343,
-      "contrib_max": 40.48467254638672,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc11g005250.2.8",
+      "score": 0.0011206571,
+      "contrib_max": 0.04977348446846,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C03G063730",
-      "score": 0.025290655,
-      "contrib_max": 40.47023010253906,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc06g060060.3.7",
+      "score": 0.0010854902,
+      "contrib_max": 0.0497134178876876,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C01G024050",
-      "score": 0.02505802,
-      "contrib_max": 40.467132568359375,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc09g072720.2.3",
+      "score": 0.00112527,
+      "contrib_max": 0.0494830980896949,
+      "sample_id": "SRR15111742.SRA"
     },
     {
-      "gene": "Cla97C07G139400",
-      "score": 0.024312919,
-      "contrib_max": 39.828521728515625,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc03g044480.3",
+      "score": 0.001230353,
+      "contrib_max": 0.0492870062589645,
+      "sample_id": "SRR7652571"
     },
     {
-      "gene": "Cla97C03G056590",
-      "score": 0.02461069,
-      "contrib_max": 39.82598876953125,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc05g015310.3.1",
+      "score": 0.0010856828,
+      "contrib_max": 0.0490870028734207,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C11G223150",
-      "score": 0.025180696,
-      "contrib_max": 39.60992813110352,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc07g008300.2.10",
+      "score": 0.0011659721,
+      "contrib_max": 0.0489557608962059,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C11G221460",
-      "score": 0.024382597,
-      "contrib_max": 39.60578155517578,
-      "sample_id": "SRR11040544"
+      "gene": "gene:Solyc05g054230.3.4",
+      "score": 0.0012307577,
+      "contrib_max": 0.0488936752080917,
+      "sample_id": "SRR26532941.SRA"
     }
   ],
-  "DAH3615-MS": [
+  "Heinz 1706": [
     {
-      "gene": "Cla97C11G213490",
-      "score": 0.02657974,
-      "contrib_max": 49.51316833496094,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc10g081620.2.6",
+      "score": 0.0012560578,
+      "contrib_max": 0.0560302212834358,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C05G093300",
-      "score": 0.026769992,
-      "contrib_max": 47.517189025878906,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc01g097440.3.13",
+      "score": 0.001283295,
+      "contrib_max": 0.0537554025650024,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C06G112400",
-      "score": 0.025104312,
-      "contrib_max": 47.21561813354492,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc02g082200.3",
+      "score": 0.001339781,
+      "contrib_max": 0.0534548386931419,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C02G031840",
-      "score": 0.0265262,
-      "contrib_max": 46.24519348144531,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc01g088240.3.1",
+      "score": 0.0012318222,
+      "contrib_max": 0.0534476861357688,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C01G025300",
-      "score": 0.02568286,
-      "contrib_max": 45.839111328125,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc01g079610.3.8",
+      "score": 0.0012685803,
+      "contrib_max": 0.0533289015293121,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C01G018420",
-      "score": 0.025289703,
-      "contrib_max": 45.42667388916016,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc06g063210.3.10",
+      "score": 0.0012191512,
+      "contrib_max": 0.0523910447955131,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C10G186150",
-      "score": 0.025937013,
-      "contrib_max": 45.0169563293457,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc08g078400.3.19",
+      "score": 0.0011435632,
+      "contrib_max": 0.0523100569844245,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C11G218240",
-      "score": 0.026197527,
-      "contrib_max": 44.79605865478516,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc07g026815.1.1",
+      "score": 0.0011205917,
+      "contrib_max": 0.0521722361445426,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C05G085140",
-      "score": 0.025425686,
-      "contrib_max": 44.67497253417969,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc08g079870.2.1",
+      "score": 0.001189509,
+      "contrib_max": 0.0517648234963417,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C10G187480",
-      "score": 0.025887614,
-      "contrib_max": 44.31923675537109,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc03g114040.3.5",
+      "score": 0.0011301874,
+      "contrib_max": 0.0516510233283042,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C06G117340",
-      "score": 0.025904898,
-      "contrib_max": 44.08185195922852,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc03g117150.3.9",
+      "score": 0.0012647335,
+      "contrib_max": 0.0515588521957397,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C03G065440",
-      "score": 0.02641185,
-      "contrib_max": 43.82219696044922,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc09g082310.2",
+      "score": 0.0010709751,
+      "contrib_max": 0.0514468178153038,
+      "sample_id": "SRR15111742.SRA"
     },
     {
-      "gene": "Cla97C02G049700",
-      "score": 0.024912572,
-      "contrib_max": 43.57126998901367,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc03g078800.2.2",
+      "score": 0.0012464232,
+      "contrib_max": 0.0513722412288188,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C10G192660",
-      "score": 0.025566693,
-      "contrib_max": 43.56787109375,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc11g011120.2",
+      "score": 0.001251983,
+      "contrib_max": 0.0509481690824031,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C04G068830",
-      "score": 0.025584016,
-      "contrib_max": 43.536712646484375,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc07g041780.3.1",
+      "score": 0.0010825152,
+      "contrib_max": 0.050695464015007,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C09G171320",
-      "score": 0.024224237,
-      "contrib_max": 43.42519760131836,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc06g007120.3.5",
+      "score": 0.0010625026,
+      "contrib_max": 0.0506680607795715,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C09G163860",
-      "score": 0.026198693,
-      "contrib_max": 43.327545166015625,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc01g067500.3.11",
+      "score": 0.0011751801,
+      "contrib_max": 0.0504641532897949,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C07G131780",
-      "score": 0.024949534,
-      "contrib_max": 43.305511474609375,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc05g012050.3.1",
+      "score": 0.001135143,
+      "contrib_max": 0.0504274927079677,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C07G131810",
-      "score": 0.025901183,
-      "contrib_max": 43.19661712646485,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc00g022080.1",
+      "score": 0.001137686,
+      "contrib_max": 0.0503297485411167,
+      "sample_id": "SRR15111742.SRA"
     },
     {
-      "gene": "Cla97C02G049870",
-      "score": 0.025566438,
-      "contrib_max": 43.13374328613281,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc02g069120.3.10",
+      "score": 0.0010599713,
+      "contrib_max": 0.0501718521118164,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C07G134820",
-      "score": 0.025379159,
-      "contrib_max": 42.9199104309082,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc12g094410.2.14",
+      "score": 0.0012555022,
+      "contrib_max": 0.0501714050769805,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C09G167090",
-      "score": 0.025648495,
-      "contrib_max": 42.85726165771485,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc11g044860.2",
+      "score": 0.0010830665,
+      "contrib_max": 0.0498455502092838,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C06G122340",
-      "score": 0.025308056,
-      "contrib_max": 42.81456756591797,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc01g096490.3.3",
+      "score": 0.0011346128,
+      "contrib_max": 0.0498044081032276,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C09G169600",
-      "score": 0.024497733,
-      "contrib_max": 42.72439956665039,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc02g091330.3.11",
+      "score": 0.001105499,
+      "contrib_max": 0.0497367642819881,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C02G034940",
-      "score": 0.026118768,
-      "contrib_max": 42.485595703125,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc02g079415.1.5",
+      "score": 0.0012831985,
+      "contrib_max": 0.0496723800897598,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C07G132050",
-      "score": 0.025273085,
-      "contrib_max": 42.47461700439453,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc12g044733.1.4",
+      "score": 0.0011856104,
+      "contrib_max": 0.0496000163257122,
+      "sample_id": "SRR7652571"
     },
     {
-      "gene": "Cla97C01G018460",
-      "score": 0.02467537,
-      "contrib_max": 42.370399475097656,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc03g059235.1.4",
+      "score": 0.0010793231,
+      "contrib_max": 0.0495561584830284,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C06G120660",
-      "score": 0.025899159,
-      "contrib_max": 42.30647277832031,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc12g017540.2.2",
+      "score": 0.0011528563,
+      "contrib_max": 0.0494644902646541,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C06G114320",
-      "score": 0.025487646,
-      "contrib_max": 42.17979049682617,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc11g056330.1.1",
+      "score": 0.0010689301,
+      "contrib_max": 0.0493855476379394,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C02G047370",
-      "score": 0.02596173,
-      "contrib_max": 42.16217041015625,
-      "sample_id": "SRR8177420"
+      "gene": "gene:Solyc01g111275.1",
+      "score": 0.0011087657,
+      "contrib_max": 0.0492902770638465,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc01g017400.2.2",
+      "score": 0.0010569585,
+      "contrib_max": 0.0498842373490333,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc04g058090.3.8",
+      "score": 0.0011868532,
+      "contrib_max": 0.04985211789608,
+      "sample_id": "SRR26436264.SRA"
     }
   ],
-  "H2": [],
-  "HQ-2": [],
-  "Jingmei 3K": [
+  "Micro-Tom": [
     {
-      "gene": "Cla97C07G142410",
-      "score": 0.024660807,
-      "contrib_max": 37.08177185058594,
-      "sample_id": "SRR27160637"
+      "gene": "gene:Solyc03g114465.1.10",
+      "score": 0.0012108271,
+      "contrib_max": 0.055389504879713,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C03G057450",
-      "score": 0.024133492,
-      "contrib_max": 32.41201400756836,
-      "sample_id": "SRR27160637"
+      "gene": "gene:Solyc00g023580.1",
+      "score": 0.0013046125,
+      "contrib_max": 0.0546578615903854,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C01G008670",
-      "score": 0.024060722,
-      "contrib_max": 32.20561218261719,
-      "sample_id": "SRR27160637"
+      "gene": "gene:Solyc06g083540.3.3",
+      "score": 0.0012122482,
+      "contrib_max": 0.0545510575175285,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc03g117520.2.1",
+      "score": 0.001352356,
+      "contrib_max": 0.0539626739919185,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc03g120760.3.7",
+      "score": 0.0012205247,
+      "contrib_max": 0.0532684475183486,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc05g013730.3.10",
+      "score": 0.0011632509,
+      "contrib_max": 0.0532171875238418,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc01g098430.3.4",
+      "score": 0.0012258355,
+      "contrib_max": 0.0529618933796882,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc02g065710.2.1",
+      "score": 0.0010523496,
+      "contrib_max": 0.0515731535851955,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc01g010910.2",
+      "score": 0.0011087172,
+      "contrib_max": 0.0515158474445343,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc06g074560.1",
+      "score": 0.0012728956,
+      "contrib_max": 0.0514796823263168,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc02g068070.3.7",
+      "score": 0.0011825268,
+      "contrib_max": 0.0514048412442207,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc04g076525.1.4",
+      "score": 0.0011300856,
+      "contrib_max": 0.0513892322778701,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc08g067620.3.24",
+      "score": 0.0011808623,
+      "contrib_max": 0.0510678216814994,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc04g058040.2",
+      "score": 0.0010976155,
+      "contrib_max": 0.0509561076760292,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc01g105330.3.2",
+      "score": 0.0011868407,
+      "contrib_max": 0.0508996844291687,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc02g091230.3.1",
+      "score": 0.0011516566,
+      "contrib_max": 0.0506834127008914,
+      "sample_id": "SRR15111742.SRA"
+    },
+    {
+      "gene": "gene:Solyc06g066650.3.2",
+      "score": 0.0012099743,
+      "contrib_max": 0.0505112260580062,
+      "sample_id": "SRR15111742.SRA"
+    },
+    {
+      "gene": "gene:Solyc07g005850.2.3",
+      "score": 0.001234006,
+      "contrib_max": 0.0503510497510433,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc11g062260.2.7",
+      "score": 0.0011695591,
+      "contrib_max": 0.0501808226108551,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc03g097060.3.7",
+      "score": 0.0010729915,
+      "contrib_max": 0.0500039234757423,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc01g017400.2.2",
+      "score": 0.0010569585,
+      "contrib_max": 0.0498842373490333,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc04g058090.3.8",
+      "score": 0.0011868532,
+      "contrib_max": 0.04985211789608,
+      "sample_id": "SRR26436264.SRA"
     }
   ],
-  "zaojia8422": [
+  "Roma VF": [
     {
-      "gene": "Cla97C08G145950",
-      "score": 0.02515287,
-      "contrib_max": 49.964447021484375,
-      "sample_id": "SRR16280135"
+      "gene": "gene:Solyc01g060040.3.22",
+      "score": 0.0012436771,
+      "contrib_max": 0.0565954037010669,
+      "sample_id": "SRR26436264.SRA"
     },
     {
-      "gene": "Cla97C08G159430",
-      "score": 0.026980553,
-      "contrib_max": 49.890716552734375,
-      "sample_id": "SRR16280135"
+      "gene": "gene:Solyc08g078400.3.18",
+      "score": 0.0013157169,
+      "contrib_max": 0.0547568276524543,
+      "sample_id": "SRR26436264.SRA"
     },
     {
+      "gene": "gene:Solyc06g007120.3.6",
+      "score": 0.0011821787,
+      "contrib_max": 0.0540537014603614,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc06g052010.2.3",
+      "score": 0.0013014989,
+      "contrib_max": 0.0538459792733192,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:ENSRNA050029203",
+      "score": 0.0012379581,
+      "contrib_max": 0.0534488745033741,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc01g091380.3.15",
+      "score": 0.0012753693,
+      "contrib_max": 0.0531765669584274,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc02g078300.3.3",
+      "score": 0.0011890484,
+      "contrib_max": 0.0529963560402393,
+      "sample_id": "SRR15111742.SRA"
+    },
+    {
+      "gene": "gene:Solyc01g103185.1.2",
+      "score": 0.0012015136,
+      "contrib_max": 0.0526082403957843,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc01g008497.1.2",
+      "score": 0.0011583343,
+      "contrib_max": 0.0525263473391532,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc01g087385.1.2",
+      "score": 0.0012040312,
+      "contrib_max": 0.0523338243365287,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc05g007930.3.7",
+      "score": 0.001292346,
+      "contrib_max": 0.052283763885498,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc05g010160.3.19",
+      "score": 0.0012182135,
+      "contrib_max": 0.052119817584753,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc11g042430.2.1",
+      "score": 0.0011335674,
+      "contrib_max": 0.0516677647829055,
+      "sample_id": "SRR15111742.SRA"
+    },
+    {
+      "gene": "gene:Solyc07g052400.3.4",
+      "score": 0.0011240786,
+      "contrib_max": 0.0516522116959091,
+      "sample_id": "SRR26436264.SRA"
+    },
+    {
+      "gene": "gene:Solyc12g005760.2.6",
+      "score": 0.001134429,
+      "contrib_max": 0.0512375086545941,
+      "sample_id": "SRR26436264.SRA"
+    }
+  ]
+}    {
       "gene": "Cla97C02G049900",
       "score": 0.028032348,
       "contrib_max": 49.76765441894531,

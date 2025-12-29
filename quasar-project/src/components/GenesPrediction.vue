@@ -121,6 +121,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import axios from 'axios'
 import {
   predictGenes,
   UnsupportedCropError,
@@ -216,11 +217,16 @@ async function submitForm() {
   } catch (err: unknown) {
     // Mostrar errores explícitos si vienen del backend
     // Axios errors tienen estructura err.response?.data?.detail
-    const anyErr = err as any
     if (err instanceof UnsupportedCropError) {
       errorMsg.value = `Modelo no disponible para ${err.cultivo}.`
-    } else if (anyErr && anyErr.response && anyErr.response.data && anyErr.response.data.detail) {
-      errorMsg.value = String(anyErr.response.data.detail)
+    } else if (axios.isAxiosError(err) && err.response?.data) {
+      type BackendError = { detail?: unknown }
+      const data = err.response.data as BackendError
+      if (typeof data.detail === 'string') {
+        errorMsg.value = data.detail
+      } else {
+        errorMsg.value = 'Error al obtener la predicción. Intente nuevamente más tarde.'
+      }
     } else {
       errorMsg.value = 'Error al obtener la predicción. Intente nuevamente más tarde.'
     }

@@ -1,0 +1,23 @@
+{
+  "saved_at": "20251206_172625",
+  "task": "classification",
+  "class_names": [
+    "Alisa Craig",
+    "Heinz 1706",
+    "Micro-Tom",
+    "Roma VF"
+  ],
+  "n_classes": 4,
+  "input_dim": 22,
+  "alpha": 0.5,
+  "T": 2.0,
+  "preproc": {
+    "ohe": "F:\\NN_SL\\preproc\\red3_ohe_20251206_171239.joblib",
+    "scaler": "F:\\NN_SL\\preproc\\red3_scaler_20251206_171239.joblib",
+    "columns": "F:\\NN_SL\\preproc\\red3_columns_20251206_171239.json"
+  },
+  "plots": {
+    "confusion": "F:\\NN_SL\\features\\red3_confusion_20251206_172625.png",
+    "loss": "F:\\NN_SL\\features\\red3_loss_20251206_172625.png"
+  }
+}

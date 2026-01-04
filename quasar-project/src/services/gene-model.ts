@@ -2,7 +2,7 @@
 import { api } from './api';
 
 export type Cultivo = 'Maíz' | 'Sorgo' | 'Tomate' | 'Sandía' | 'Algodón';
-export const SUPPORTED_CROPS: Cultivo[] = ['Sandía', 'Maíz', 'Algodón', 'Tomate'];
+export const SUPPORTED_CROPS: Cultivo[] = ['Sandía', 'Maíz', 'Algodón', 'Tomate', 'Sorgo'];
 
 export interface GENE_MODEL_INPUTS {
   cultivo: Cultivo;

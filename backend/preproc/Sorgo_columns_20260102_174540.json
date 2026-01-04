@@ -1,0 +1,29 @@
+{
+  "categorical": [],
+  "numeric": [
+    "Temperatura (\u00b0C)",
+    "Humedad Relativa (%)",
+    "Intensidad Luminica (\u03bcmol m-2 s-1)",
+    "PEG/Agua (%)",
+    "NaCl (mM)",
+    "Temp (\u00b0C)",
+    "Cd (mg/L)",
+    "Fe (\u03bcM)",
+    "Zn (\u03bcM)",
+    "Estres_Sequia",
+    "Estres_Salinidad",
+    "Estres_Calor",
+    "Estres_Hierro",
+    "Estres_Cadmio",
+    "Estres_Zinc",
+    "pH del suelo",
+    "Humedad del suelo (%)",
+    "Conductividad electrica (dS/m)",
+    "Carbono organico total (%)",
+    "Nitrogeno total (kg/ha)",
+    "Fosforo soluble (mg/kg)",
+    "Franco",
+    "Arcilloso",
+    "Limoso"
+  ]
+}

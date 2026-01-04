@@ -109,8 +109,9 @@ def _load_model_config(prefix: str):
 
 # --- Cargar configuraciones de cultivos disponibles ---
 CULTIVOS_CONFIG = {}
-# Artefactos disponibles: sandia, tomate, maiz, gh
-CULTIVOS_DISPONIBLES = ["sandia", "tomate", "maiz", "gh"]  # prefijos de archivos
+
+# Artefactos disponibles: sandia, tomate, maiz, gh, sorgo
+CULTIVOS_DISPONIBLES = ["sandia", "tomate", "maiz", "gh", "sorgo"]  # prefijos de archivos
 
 for cultivo_prefix in CULTIVOS_DISPONIBLES:
     try:
@@ -122,12 +123,14 @@ if not CULTIVOS_CONFIG:
     raise RuntimeError("No se pudo cargar ningún modelo de cultivo")
 
 # Mapeo de nombre amigable → prefix de archivo
+
 CULTIVO_MAP = {
     "Sandía": "sandia",
     "Maíz": "maiz",
     "Algodón": "gh",
     # El prefijo 'tomate' contiene las artefactos para variedades de tomate
     "Tomate": "tomate",
+    "Sorgo": "sorgo",
 }
 
 # Para compatibilidad con código existente, usar red3 por defecto

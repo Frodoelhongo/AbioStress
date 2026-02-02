@@ -52,8 +52,11 @@ def _load_model_config(prefix: str):
         ohe_path    = _latest(f"{prefix}_ohe*.joblib",          DIR_PREPROC)
         cols_path   = _latest(f"{prefix}_columns*.json",        DIR_PREPROC)
         
+        print(f"[DEBUG] Leyendo meta_path: {meta_path}")
         with open(meta_path, "r", encoding="utf-8") as f:
-            meta = json.load(f)
+            content = f.read()
+            print(f"[DEBUG] Contenido meta_path:\n{content}")
+            meta = json.loads(content)
         class_names = meta.get("class_names", [])
         if not class_names:
             raise RuntimeError(f"class_names vacío en meta de {prefix}.")

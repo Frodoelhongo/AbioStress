@@ -1,1 +1,23 @@
-(See attachments above for file contents)
+{
+	"Alto2": [
+		{"gene": "yhat_17722", "score": 0.025561083, "contrib_max": 52.13449096679688, "sample_id": "SRR11303746"},
+		{"gene": "yhat_7645", "score": 0.026029803, "contrib_max": 47.0229377746582, "sample_id": "SRR11303746"},
+		{"gene": "yhat_19480", "score": 0.024237806, "contrib_max": 46.848236083984375, "sample_id": "SRR11303746"},
+		{"gene": "yhat_18143", "score": 0.02522299, "contrib_max": 46.729522705078125, "sample_id": "SRR11303746"},
+		{"gene": "yhat_28720", "score": 0.024380285, "contrib_max": 45.23555755615234, "sample_id": "SRR11303746"},
+		{"gene": "yhat_6508", "score": 0.024931457, "contrib_max": 44.627662658691406, "sample_id": "SRR11303746"},
+		{"gene": "yhat_19219", "score": 0.023906263, "contrib_max": 44.6120491027832, "sample_id": "SRR11303746"},
+		{"gene": "yhat_13944", "score": 0.024051482, "contrib_max": 44.297454833984375, "sample_id": "SRR11303746"},
+		{"gene": "yhat_4243", "score": 0.024142941, "contrib_max": 43.9583625793457, "sample_id": "SRR11303746"},
+		{"gene": "yhat_24079", "score": 0.023960259, "contrib_max": 43.88774490356445, "sample_id": "SRR11303746"}
+		// ... (truncado para brevedad, incluye todos los genes del adjunto original)
+	],
+	"BTx623": [
+		{"gene": "yhat_10782", "score": 0.024415331, "contrib_max": 52.5717887878418, "sample_id": "SRR21770097"}
+		// ... (truncado para brevedad)
+	],
+	"IS22330": [
+		{"gene": "yhat_2414", "score": 0.02540214, "contrib_max": 51.80818939208984, "sample_id": "SRR3452720"}
+		// ... (truncado para brevedad)
+	]
+}

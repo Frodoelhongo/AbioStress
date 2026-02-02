@@ -1,1 +1,23 @@
-(See attachments above for file contents)
+{
+  "saved_at": "20260102_174605",
+  "task": "classification",
+  "class_names": [
+    "Alto2",
+    "BTx623",
+    "IS22330",
+    "RTx430"
+  ],
+  "n_classes": 4,
+  "input_dim": 24,
+  "alpha": 0.5,
+  "T": 2.0,
+  "preproc": {
+    "ohe": "G:\\Sorghum\\NN_SG\\preproc\\red3_ohe_20260102_174540.joblib",
+    "scaler": "G:\\Sorghum\\NN_SG\\preproc\\red3_scaler_20260102_174540.joblib",
+    "columns": "G:\\Sorghum\\NN_SG\\preproc\\red3_columns_20260102_174540.json"
+  },
+  "plots": {
+    "confusion": "G:\\Sorghum\\NN_SG\\features\\red3_confusion_20260102_174605.png",
+    "loss": "G:\\Sorghum\\NN_SG\\features\\red3_loss_20260102_174605.png"
+  }
+}

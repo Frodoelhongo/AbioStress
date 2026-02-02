@@ -127,6 +127,10 @@
       <interpretation-panel :result="predictionResult" />
     </q-tab-panel>
 
+    <q-tab-panel name="interpretacion-agricola" class="panel-with-background">
+      <interpretation-results :result="predictionResult" />
+    </q-tab-panel>
+
     <q-tab-panel name="gene-prediction" class="panel-with-background">
       <section id="gene-prediction">
         <genes-prediction @prediction-updated="predictionResult = $event" />
@@ -145,6 +149,7 @@ import DbTable from 'src/components/DbTable.vue';
 import AboutUs from 'src/components/AboutUs.vue';
 import GenesPrediction from 'src/components/GenesPrediction.vue';
 import InterpretationPanel from 'src/components/InterpretationPanel.vue';
+import InterpretationResults from 'src/components/InterpretationResults.vue';
 
 const selectedTab = defineModel();
 const currentSlide = ref('1');
@@ -174,6 +179,7 @@ provide('predictionResult', predictionResult);
   background: rgba(184, 201, 217, 0.35);
   min-height: calc(100vh - 70px);
 }
+
 
 /* Sección principal */
 .home-section {

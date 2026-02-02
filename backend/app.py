@@ -19,6 +19,7 @@ app.add_middleware(
         "https://abio-stress-twas.biorem.cc",
         "http://localhost:9000",  # optional, useful if testing locally
     ],
+    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1|0\.0\.0\.0|\d+\.\d+\.\d+\.\d+)(:\d+)?$",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

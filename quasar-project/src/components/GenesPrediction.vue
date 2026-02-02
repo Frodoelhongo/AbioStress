@@ -122,6 +122,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import axios from 'axios'
+import { api } from 'src/services/api'
 import {
   predictGenes,
   UnsupportedCropError,
@@ -219,13 +220,18 @@ async function submitForm() {
     // Axios errors tienen estructura err.response?.data?.detail
     if (err instanceof UnsupportedCropError) {
       errorMsg.value = `Modelo no disponible para ${err.cultivo}.`
-    } else if (axios.isAxiosError(err) && err.response?.data) {
+    } else if (axios.isAxiosError(err)) {
+      if (!err.response) {
+        const base = api.defaults.baseURL || 'desconocida'
+        errorMsg.value = `No se pudo conectar con el backend (${base}). Verifique que esté activo.`
+      } else if (err.response?.data) {
       type BackendError = { detail?: unknown }
       const data = err.response.data as BackendError
       if (typeof data.detail === 'string') {
         errorMsg.value = data.detail
       } else {
         errorMsg.value = 'Error al obtener la predicción. Intente nuevamente más tarde.'
+      }
       }
     } else {
       errorMsg.value = 'Error al obtener la predicción. Intente nuevamente más tarde.'

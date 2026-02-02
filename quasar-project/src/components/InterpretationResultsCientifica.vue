@@ -31,13 +31,13 @@ const lowRecommendation = computed(() => {
     .filter(([, prob]) => prob < 0.2)
     .sort((a, b) => b[1] - a[1])
 })
-
 </script>
 
 <template>
   <div class="interpretation-results">
-    <!-- Cuadro de recomendaciones de líneas de cultivo -->
-    <div class="recommendations-box q-mt-lg">
+    <section class="recommendations-panel">
+      <!-- Cuadro de recomendaciones de líneas de cultivo -->
+      <div class="recommendations-box q-mt-lg">
       <h3 class="recommendations-title">Líneas de Cultivo Recomendadas</h3>
 
       <div class="recommendations-grid">
@@ -87,9 +87,11 @@ const lowRecommendation = computed(() => {
         </div>
       </div>
     </div>
+    </section>
 
-    <!-- Cuadro de Próximos Pasos -->
-    <div class="next-steps-box q-mt-lg">
+    <section class="next-steps-panel">
+      <!-- Cuadro de Próximos Pasos -->
+      <div class="next-steps-box q-mt-lg">
       <h3 class="next-steps-title">Próximos Pasos</h3>
       <ol class="next-steps-list">
         <li class="next-step-item">
@@ -104,10 +106,18 @@ const lowRecommendation = computed(() => {
       </ol>
       <p class="success-message">¡Que tenga una cosecha exitosa!</p>
     </div>
+    </section>
   </div>
 </template>
 
 <style scoped>
+.recommendations-panel {
+  width: 100%;
+}
+
+.next-steps-panel {
+  width: 100%;
+}
 
 .recommendations-box {
   background: rgba(255, 255, 255, 0.98);

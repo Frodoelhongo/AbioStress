@@ -2,7 +2,7 @@
 import { ref, computed, onMounted } from 'vue'
 import type { QTableProps } from 'quasar'
 import { api } from 'src/services/api'
-import InterpretationResults from 'src/components/InterpretationResults.vue'
+import InterpretationResultsCientifica from 'src/components/InterpretationResultsCientifica.vue'
 
 // Tipo del resultado recibido desde GenesPrediction
 type PredictionResult = {
@@ -101,7 +101,7 @@ onMounted(() => {
 
 <template>
   <div class="q-pa-md interpretation-panel">
-    <interpretation-results :result="props.result" />
+    <interpretation-results-cientifica :result="props.result" />
 
     <!-- Sección de tabla de interpretación -->
     <div class="interpretation-table-section q-mt-xl">

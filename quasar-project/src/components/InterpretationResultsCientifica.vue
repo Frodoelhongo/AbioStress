@@ -17,271 +17,299 @@ type PredictionResult = {
 
 const props = defineProps<{ result: PredictionResult }>()
 
-// Clasificar líneas por probabilidad
-const highRecommendation = computed(() => {
-  if (!props.result?.probabilities) return []
-  return Object.entries(props.result.probabilities)
-    .filter(([, prob]) => prob > 0.8)
-    .sort((a, b) => b[1] - a[1])
+const geneCount = computed(() => props.result?.genes?.length ?? 0)
+
+const geneItems = computed(() => {
+  if (!props.result?.genes) return []
+  const items = props.result.genes.map((gene, index) => {
+    if (typeof gene === 'string') {
+      return { key: `${gene}-${index}`, gene, score: undefined, stresses: [] as string[] }
+    }
+    return {
+      key: `${gene.gene}-${index}`,
+      gene: gene.gene,
+      score: gene.score,
+      stresses: gene.stresses ?? []
+    }
+  })
+
+  return items
+    .slice()
+    .sort((a, b) => (b.score ?? -Infinity) - (a.score ?? -Infinity))
+    .slice(0, 5)
 })
 
-const moderateRecommendation = computed(() => {
-  if (!props.result?.probabilities) return []
-  return Object.entries(props.result.probabilities)
-    .filter(([, prob]) => prob >= 0.2 && prob <= 0.8)
-    .sort((a, b) => b[1] - a[1])
-})
-
-const lowRecommendation = computed(() => {
-  if (!props.result?.probabilities) return []
-  return Object.entries(props.result.probabilities)
-    .filter(([, prob]) => prob < 0.2)
-    .sort((a, b) => b[1] - a[1])
-})
 </script>
 
 <template>
   <div class="interpretation-results">
-    <section class="recommendations-panel">
-      <!-- Cuadro de recomendaciones de líneas de cultivo -->
+    <section class="gene-score-panel">
       <div class="recommendations-box q-mt-lg">
-      <h3 class="recommendations-title">Líneas de Cultivo Recomendadas</h3>
-
-      <div class="recommendations-grid">
-        <!-- Alta Recomendación -->
-        <div class="recommendation-column">
-          <h4 class="recommendation-category high">ALTA RECOMENDACIÓN (Probabilidad >80%)</h4>
-          <p class="recommendation-line"><strong>Significado:</strong> Variedades ideales para sus condiciones de suelo</p>
-          <p class="recommendation-line"><strong>Ventaja:</strong> Alto potencial de rendimiento</p>
-          <p class="recommendation-line"><strong>Acción:</strong> Primera opción para la próxima siembra</p>
-          <div v-if="highRecommendation.length > 0" class="lines-list q-mt-sm">
-            <div v-for="[line, prob] in highRecommendation" :key="line" class="line-item">
-              <span class="line-name">{{ line }}</span>
-              <span class="line-prob">{{ (prob * 100).toFixed(1) }}%</span>
-            </div>
+        <div class="recommendations-header">
+          <div class="header-text">
+            <h3 class="recommendations-title">Panel de Genes y Score</h3>
+            <p class="recommendations-subtitle">
+              Guia rapida para interpretar la relevancia genetica en la prediccion.
+            </p>
           </div>
-          <p v-else class="no-lines">No hay líneas en esta categoría</p>
+          <div v-if="geneCount > 0" class="recommendation-chip">
+            Genes detectados: <span class="chip-strong">{{ geneCount }}</span>
+          </div>
         </div>
 
-        <!-- Recomendación Moderada -->
-        <div class="recommendation-column">
-          <h4 class="recommendation-category moderate">RECOMENDACIÓN MODERADA (Probabilidad 20-80%)</h4>
-          <p class="recommendation-line"><strong>Significado:</strong> Pueden crecer pero requieren manejo especializado</p>
-          <p class="recommendation-line"><strong>Ventaja:</strong> Opción viable si no hay disponibles las mejor adaptadas</p>
-          <p class="recommendation-line"><strong>Acción:</strong> Necesitan seguimiento técnico y ajustes en el manejo</p>
-          <div v-if="moderateRecommendation.length > 0" class="lines-list q-mt-sm">
-            <div v-for="[line, prob] in moderateRecommendation" :key="line" class="line-item">
-              <span class="line-name">{{ line }}</span>
-              <span class="line-prob">{{ (prob * 100).toFixed(1) }}%</span>
+        <div class="gene-score-grid">
+          <div class="info-card">
+            <h4 class="info-title">Genes</h4>
+            <p class="info-text">
+              Los genes listados son los mas relevantes para la condicion evaluada.
+              Su presencia sugiere mecanismos biologicos asociados a tolerancia o sensibilidad.
+            </p>
+            <div v-if="geneItems.length" class="gene-list">
+              <div v-for="item in geneItems" :key="item.key" class="gene-row">
+                <div class="gene-main">
+                  <div class="gene-name">{{ item.gene }}</div>
+                  <div v-if="item.stresses.length" class="gene-meaning">
+                    {{ item.stresses.join(', ') }}
+                  </div>
+                </div>
+              </div>
             </div>
+            <p v-else class="no-genes">No hay genes disponibles para mostrar.</p>
           </div>
-          <p v-else class="no-lines">No hay líneas en esta categoría</p>
-        </div>
-
-        <!-- No Recomendado -->
-        <div class="recommendation-column">
-          <h4 class="recommendation-category low">NO RECOMENDADO (Probabilidad &lt;20%)</h4>
-          <p class="recommendation-line"><strong>Significado:</strong> Baja adaptación a sus condiciones de suelo</p>
-          <p class="recommendation-line"><strong>Riesgo:</strong> Alta probabilidad de bajos rendimientos</p>
-          <p class="recommendation-line"><strong>Acción:</strong> Evitar sembrar para prevenir pérdidas</p>
-          <div v-if="lowRecommendation.length > 0" class="lines-list q-mt-sm">
-            <div v-for="[line, prob] in lowRecommendation" :key="line" class="line-item">
-              <span class="line-name">{{ line }}</span>
-              <span class="line-prob">{{ (prob * 100).toFixed(1) }}%</span>
+          <div class="info-card">
+            <h4 class="info-title">Score</h4>
+            <p class="info-text">
+              El score indica la fuerza de contribucion de cada gen en la prediccion.
+              A mayor score, mayor influencia en el resultado.
+            </p>
+            <div v-if="geneItems.length" class="score-list">
+              <div v-for="item in geneItems" :key="item.key" class="score-row">
+                <span v-if="item.score !== undefined" class="gene-score">Score {{ item.score }}</span>
+                <span v-else class="gene-score is-muted">Score N/D</span>
+              </div>
             </div>
+            <p v-else class="no-genes">No hay scores disponibles para mostrar.</p>
           </div>
-          <p v-else class="no-lines">No hay líneas en esta categoría</p>
         </div>
       </div>
-    </div>
-    </section>
-
-    <section class="next-steps-panel">
-      <!-- Cuadro de Próximos Pasos -->
-      <div class="next-steps-box q-mt-lg">
-      <h3 class="next-steps-title">Próximos Pasos</h3>
-      <ol class="next-steps-list">
-        <li class="next-step-item">
-          Revise las variedades en <span class="color-indicator green">VERDE</span> como primera opción
-        </li>
-        <li class="next-step-item">
-          Consulte con su técnico agrícola para el plan de manejo
-        </li>
-        <li class="next-step-item">
-          Evite las variedades en <span class="color-indicator red">ROJO</span> para minimizar riesgos
-        </li>
-      </ol>
-      <p class="success-message">¡Que tenga una cosecha exitosa!</p>
-    </div>
     </section>
   </div>
 </template>
 
 <style scoped>
-.recommendations-panel {
-  width: 100%;
+.interpretation-results {
+  font-family: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  color: #243323;
 }
 
-.next-steps-panel {
+.gene-score-panel {
   width: 100%;
 }
 
 .recommendations-box {
-  background: rgba(255, 255, 255, 0.98);
-  border-radius: 10px;
-  padding: 18px 25px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 95%;
-  margin: 0 auto 25px;
+  background: linear-gradient(180deg, #f4f7ef 0%, #edf2e7 100%);
+  border-radius: 16px;
+  padding: 22px 26px 26px;
+  box-shadow: 0 18px 32px rgba(35, 52, 32, 0.12);
+  border: 1px solid rgba(63, 90, 48, 0.2);
+  max-width: 980px;
+  margin: 0 auto 26px;
+  position: relative;
+  overflow: hidden;
+}
+
+.recommendations-box::before {
+  content: "";
+  position: absolute;
+  inset: -60px auto auto -40px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(136, 174, 94, 0.25) 0%, rgba(136, 174, 94, 0) 70%);
+  pointer-events: none;
+}
+
+.recommendations-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.header-text {
+  max-width: 520px;
 }
 
 .recommendations-title {
-  font-size: 18px;
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-size: 22px;
   font-weight: 700;
-  color: #2c3e50;
-  margin: 0 0 16px 0;
-  text-align: center;
+  color: #2a3a28;
+  margin: 0 0 6px 0;
+  letter-spacing: 0.3px;
 }
 
-.recommendations-grid {
+.recommendations-subtitle {
+  font-size: 14px;
+  color: #4e5f4b;
+  margin: 0;
+}
+
+.recommendation-chip {
+  background: #e0ead7;
+  color: #2b4b1f;
+  border: 1px solid rgba(60, 90, 45, 0.2);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+}
+
+.chip-strong {
+  font-weight: 700;
+}
+
+.gene-score-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+  position: relative;
+  z-index: 1;
 }
 
-@media (max-width: 1024px) {
-  .recommendations-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
+.info-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(22, 32, 18, 0.1);
+  box-shadow: 0 10px 20px rgba(18, 29, 16, 0.08);
 }
 
-.recommendation-column {
-  display: flex;
-  flex-direction: column;
-}
-
-.recommendation-category {
-  font-size: 15px;
+.info-title {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #567056;
   font-weight: 700;
   margin: 0 0 8px 0;
-  padding: 6px 10px;
-  border-radius: 6px;
-  display: inline-block;
 }
 
-.recommendation-category.high {
-  background: #d4edda;
-  color: #155724;
-}
-
-.recommendation-category.moderate {
-  background: #fff3cd;
-  color: #856404;
-}
-
-.recommendation-category.low {
-  background: #f8d7da;
-  color: #721c24;
-}
-
-.recommendation-line {
+.info-text {
   font-size: 14px;
-  font-weight: 400;
-  color: #444;
-  margin: 4px 0;
+  color: #2f3f2b;
+  margin: 0;
   line-height: 1.5;
 }
 
-.lines-list {
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 8px;
-  padding: 10px 12px;
-  margin-top: 8px;
+.gene-list {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
 }
 
-.line-item {
+.gene-row {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 6px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #f6f9f3;
+  border: 1px dashed rgba(45, 60, 38, 0.2);
 }
 
-.line-item:last-child {
-  border-bottom: none;
+.gene-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.line-name {
+.gene-name {
   font-size: 14px;
-  font-weight: 500;
-  color: #2c3e50;
-}
-
-.line-prob {
-  font-size: 15px;
   font-weight: 700;
-  color: #1976d2;
+  color: #2b3b27;
 }
 
-.no-lines {
+.gene-meaning {
+  font-size: 12px;
+  color: #4e5f4b;
+}
+
+.score-list {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.score-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #f6f9f3;
+  border: 1px dashed rgba(45, 60, 38, 0.2);
+}
+
+
+
+.gene-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.gene-score {
   font-size: 14px;
-  color: #999;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #d6f1d9;
+  color: #1c4b29;
+}
+
+.gene-score.is-muted {
+  background: #e7efe1;
+  color: #3c5b2f;
+}
+
+.gene-stress {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #fff2c9;
+  color: #6e4f10;
+}
+
+.no-genes {
+  font-size: 13px;
+  color: #7a8574;
   font-style: italic;
   margin: 10px 0 0 0;
 }
 
-.next-steps-box {
-  background: rgba(255, 255, 255, 0.98);
-  border-radius: 10px;
-  padding: 20px 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 750px;
-  margin: 0 auto 25px;
+@media (max-width: 1024px) {
+  .recommendations-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .recommendation-chip {
+    white-space: normal;
+  }
 }
 
-.next-steps-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: #2c3e50;
-  margin: 0 0 15px 0;
-  text-align: center;
-}
-
-.next-steps-list {
-  list-style: decimal;
-  padding-left: 25px;
-  margin: 0 0 15px 0;
-}
-
-.next-step-item {
-  font-size: 15px;
-  color: #444;
-  margin: 10px 0;
-  line-height: 1.6;
-}
-
-.color-indicator {
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 4px;
-}
-
-.color-indicator.green {
-  color: #155724;
-  background: #d4edda;
-}
-
-.color-indicator.red {
-  color: #721c24;
-  background: #f8d7da;
-}
-
-.success-message {
-  font-size: 16px;
-  font-weight: 600;
-  color: #2e7d32;
-  text-align: center;
-  margin: 15px 0 0 0;
+@media (max-width: 768px) {
+  .gene-score-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

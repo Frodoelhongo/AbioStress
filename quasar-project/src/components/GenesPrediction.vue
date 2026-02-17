@@ -249,10 +249,10 @@ async function submitForm() {
       }
 
       const activeFromInputs: StressKey[] = []
-      if (inputModelData.value.nacl > 0) activeFromInputs.push('NaCl')
-      if (inputModelData.value.cd > 0) activeFromInputs.push('Cd')
-      if (inputModelData.value.al > 0) activeFromInputs.push('Al')
-      if (inputModelData.value.aguaPorcentual <= 30) activeFromInputs.push('Sequía')
+      if (inputModelData.value.nacl >= 5) activeFromInputs.push('NaCl')
+      if (inputModelData.value.cd >= 1) activeFromInputs.push('Cd')
+      if (inputModelData.value.al >= 1) activeFromInputs.push('Al')
+      if (inputModelData.value.aguaPorcentual <= 40) activeFromInputs.push('Sequía')
 
       const primary: StressKey = activeFromInputs[0] ?? 'Sin estrés'
 
@@ -261,30 +261,33 @@ async function submitForm() {
       ) as StressKey[]
 
       const base = stressMeta[primary] ?? stressMeta['Sin estrés']
+      const stressLabel = combined.length > 0
+        ? combined.map((stress) => stressMeta[stress].label).join(' + ')
+        : stressMeta['Sin estrés'].label
 
       if (combined.length > 1) {
         return {
           stressKey: primary,
-          stressLabel: combined.map((stress) => stressMeta[stress].label).join(' + '),
+          stressLabel,
           tolerance: 'Media' as const,
-          meaning: 'Estrés combinado; requiere manejo cuidadoso.',
+          meaning: `Línea de cultivo resiliente ante ${stressLabel}, indicando un buen rendimiento en condiciones adversas.`,
         }
       }
 
       if (combined.length === 0) {
         return {
           stressKey: 'Sin estrés',
-          stressLabel: stressMeta['Sin estrés'].label,
+          stressLabel,
           tolerance: stressMeta['Sin estrés'].tolerance,
-          meaning: stressMeta['Sin estrés'].meaning,
+          meaning: 'Línea de cultivo resiliente en condiciones generales, indicando un buen rendimiento en condiciones adversas.',
         }
       }
 
       return {
         stressKey: primary,
-        stressLabel: base.label,
+        stressLabel,
         tolerance: base.tolerance,
-        meaning: base.meaning,
+        meaning: `Línea de cultivo resiliente ante ${stressLabel}, indicando un buen rendimiento en condiciones adversas.`,
       }
     })()
 

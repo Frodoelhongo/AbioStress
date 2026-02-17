@@ -82,10 +82,11 @@ const lowRecommendation = computed(() => {
           <span class="summary-label">Tolerancia</span>
           <span class="summary-value">{{ props.result.context.tolerance }}</span>
         </div>
-        <div class="summary-card">
-          <span class="summary-label">Significado</span>
-          <span class="summary-value">{{ props.result.context.meaning }}</span>
-        </div>
+      </div>
+
+      <div v-if="props.result?.context" class="meaning-panel">
+        <span class="meaning-title">Significado</span>
+        <p class="meaning-text">{{ props.result.context.meaning }}</p>
       </div>
 
       <div class="recommendations-grid">
@@ -269,7 +270,7 @@ const lowRecommendation = computed(() => {
 
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
   margin-bottom: 20px;
 }
@@ -296,6 +297,32 @@ const lowRecommendation = computed(() => {
   font-size: 13px;
   font-weight: 600;
   color: #2a3a28;
+}
+
+.meaning-panel {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 14px 16px;
+  border: 1px solid rgba(22, 32, 18, 0.12);
+  box-shadow: 0 10px 22px rgba(18, 29, 16, 0.08);
+  margin-bottom: 18px;
+}
+
+.meaning-title {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #567056;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.meaning-text {
+  font-size: 14px;
+  color: #2f3f2b;
+  margin: 0;
+  line-height: 1.5;
 }
 
 .legend-pill {

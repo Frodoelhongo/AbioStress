@@ -52,9 +52,6 @@ const lowRecommendation = computed(() => {
             Resultados basados en condiciones similares a las de su región
           </p>
         </div>
-        <div v-if="props.result?.predicted_line" class="recommendation-chip">
-          Línea recomendada: <span class="chip-strong">{{ props.result.predicted_line }}</span>
-        </div>
       </div>
 
       <div class="recommendations-legend">

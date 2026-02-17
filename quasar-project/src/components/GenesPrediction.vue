@@ -3,8 +3,8 @@
   <q-splitter v-model="splitterModel" style="height: calc(100vh - 100px)">
     <!-- Izquierda: formulario -->
     <template v-slot:before>
-      <div class="q-pa-md" style="background: rgba(255, 255, 255, 0.95); border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); height: 100%; overflow-y: auto">
-        <q-form class="q-gutter-md" @submit="submitForm">
+      <div class="prediction-panel form-panel q-pa-md">
+        <q-form class="q-gutter-md form-card" @submit="submitForm">
           <!-- Crop selection -->
           <q-select
             v-model="inputModelData.cultivo"
@@ -59,15 +59,15 @@
 
     <!-- Derecha: resultados + tabs -->
     <template v-slot:after>
-      <div class="q-pa-md" style="background: rgba(255, 255, 255, 0.95); border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); height: 100%; overflow-y: auto">
+      <div class="prediction-panel results-panel q-pa-md">
         <div class="row items-center justify-between q-mb-md">
-          <div class="text-h5 text-center col-grow">Resultados de la Predicción</div>
+          <div class="results-title col-grow">Resultados de la Prediccion</div>
         </div>
 
         <!-- Resultados de predicción -->
 
         <div class="q-mt-md">
-            <div class="q-pa-md" style="background: rgba(255, 255, 255, 0.95); border: 1px solid #ccc; border-radius: 8px; min-height: 200px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)">
+            <div class="q-pa-md results-card">
               <template v-if="errorMsg">
                 <q-banner class="bg-red-2 text-red-10" dense>{{ errorMsg }}</q-banner>
               </template>
@@ -334,3 +334,47 @@ async function submitForm() {
   }
 }
 </script>
+
+<style scoped>
+.prediction-panel {
+  background: linear-gradient(180deg, #f4f7ef 0%, #edf2e7 100%);
+  border-radius: 16px;
+  box-shadow: 0 18px 32px rgba(35, 52, 32, 0.12);
+  border: 1px solid rgba(63, 90, 48, 0.2);
+  height: 100%;
+  overflow-y: auto;
+}
+
+.form-panel {
+  background: linear-gradient(180deg, #f7faf3 0%, #eef3e7 100%);
+}
+
+.form-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(22, 32, 18, 0.08);
+  box-shadow: 0 10px 20px rgba(18, 29, 16, 0.08);
+}
+
+.results-panel {
+  background: linear-gradient(180deg, #f1f6ea 0%, #e7f0de 100%);
+}
+
+.results-title {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #2a3a28;
+  text-align: center;
+  letter-spacing: 0.3px;
+}
+
+.results-card {
+  background: #ffffff;
+  border: 1px solid rgba(22, 32, 18, 0.1);
+  border-radius: 12px;
+  min-height: 200px;
+  box-shadow: 0 10px 20px rgba(18, 29, 16, 0.08);
+}
+</style>

@@ -6,6 +6,13 @@ type PredictionResult = {
   predicted_line: string
   probabilities: Record<string, number>
   genes: Array<{ gene: string; score?: number; stresses?: string[] } | string>
+  context?: {
+    cultivo: string
+    stressKey: string
+    stressLabel: string
+    tolerance: 'Alta' | 'Media' | 'Baja'
+    meaning: string
+  }
 } | null
 
 const props = defineProps<{ result: PredictionResult }>()
@@ -54,6 +61,31 @@ const lowRecommendation = computed(() => {
         <span class="legend-pill high">Alta</span>
         <span class="legend-pill moderate">Moderada</span>
         <span class="legend-pill low">No recomendada</span>
+      </div>
+
+      <div v-if="props.result?.predicted_line" class="recommendation-hero">
+        <div class="hero-tag">Línea recomendada</div>
+        <div class="hero-line">{{ props.result.predicted_line }}</div>
+        <div class="hero-caption">Mejor ajuste para las condiciones evaluadas</div>
+      </div>
+
+      <div v-if="props.result?.context" class="summary-grid">
+        <div class="summary-card">
+          <span class="summary-label">Cultivo</span>
+          <span class="summary-value">{{ props.result.context.cultivo }}</span>
+        </div>
+        <div class="summary-card">
+          <span class="summary-label">Estrés evaluado</span>
+          <span class="summary-value">{{ props.result.context.stressLabel }}</span>
+        </div>
+        <div class="summary-card">
+          <span class="summary-label">Tolerancia</span>
+          <span class="summary-value">{{ props.result.context.tolerance }}</span>
+        </div>
+        <div class="summary-card">
+          <span class="summary-label">Significado</span>
+          <span class="summary-value">{{ props.result.context.meaning }}</span>
+        </div>
       </div>
 
       <div class="recommendations-grid">
@@ -205,6 +237,67 @@ const lowRecommendation = computed(() => {
   margin: 16px 0 20px;
 }
 
+.recommendation-hero {
+  background: linear-gradient(120deg, #dcebd2 0%, #f2f7ed 55%, #ffffff 100%);
+  border-radius: 14px;
+  padding: 14px 16px;
+  border: 1px solid rgba(46, 88, 42, 0.2);
+  box-shadow: 0 14px 26px rgba(32, 52, 28, 0.14);
+  margin-bottom: 18px;
+  display: grid;
+  gap: 6px;
+}
+
+.hero-tag {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #2f5a2f;
+  font-weight: 700;
+}
+
+.hero-line {
+  font-size: 20px;
+  font-weight: 800;
+  color: #213220;
+}
+
+.hero-caption {
+  font-size: 12px;
+  color: #4e5f4b;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.summary-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(22, 32, 18, 0.1);
+  box-shadow: 0 8px 18px rgba(18, 29, 16, 0.06);
+}
+
+.summary-label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #6a7865;
+  margin-bottom: 4px;
+}
+
+.summary-value {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2a3a28;
+}
+
 .legend-pill {
   font-size: 12px;
   font-weight: 700;
@@ -241,6 +334,10 @@ const lowRecommendation = computed(() => {
     gap: 16px;
   }
 
+  .summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .recommendations-header {
     flex-direction: column;
     align-items: flex-start;
@@ -248,6 +345,12 @@ const lowRecommendation = computed(() => {
 
   .recommendation-chip {
     white-space: normal;
+  }
+}
+
+@media (max-width: 640px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
   }
 }
 

@@ -9,6 +9,13 @@ type PredictionResult = {
   predicted_line: string
   probabilities: Record<string, number>
   genes: Array<{ gene: string; score?: number; stresses?: string[] } | string>
+  context?: {
+    cultivo: string
+    stressKey: string
+    stressLabel: string
+    tolerance: 'Alta' | 'Media' | 'Baja'
+    meaning: string
+  }
 } | null
 
 // props: result (predicción con genes)

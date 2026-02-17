@@ -159,6 +159,13 @@ const predictionResult = ref<{
   predicted_line: string
   probabilities: Record<string, number>
   genes: Array<{ gene: string; score?: number; stresses?: string[] } | string>
+  context: {
+    cultivo: string
+    stressKey: string
+    stressLabel: string
+    tolerance: 'Alta' | 'Media' | 'Baja'
+    meaning: string
+  }
 } | null>(null);
 
 // Proveer el resultado para que los componentes hijos puedan acceder

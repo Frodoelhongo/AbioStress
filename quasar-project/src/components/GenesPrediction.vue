@@ -135,8 +135,17 @@ const emit = defineEmits<{
     predicted_line: string
     probabilities: Record<string, number>
     genes: Array<{ gene: string; score: number; stresses: string[] } | string>
+    context: {
+      cultivo: string
+      stressKey: string
+      stressLabel: string
+      tolerance: 'Alta' | 'Media' | 'Baja'
+      meaning: string
+    }
   } | null]
 }>()
+
+type StressKey = 'NaCl' | 'Cd' | 'Al' | 'Sequía' | 'Sin estrés'
 
 const splitterModel = ref(50)
 const loading = ref(false)
@@ -145,6 +154,13 @@ const result = ref<null | {
   predicted_line: string
   probabilities: Record<string, number>
   genes: Array<{ gene: string; score: number; stresses: string[] } | string>
+  context: {
+    cultivo: string
+    stressKey: string
+    stressLabel: string
+    tolerance: 'Alta' | 'Media' | 'Baja'
+    meaning: string
+  }
 }>(null)
 
 // (Tabs removidas)
@@ -203,6 +219,75 @@ async function submitForm() {
 
     const data = await predictGenes(inputModelData.value)
 
+    const stressInfo = (() => {
+      const stressMeta: Record<StressKey, { label: string; tolerance: 'Alta' | 'Media' | 'Baja'; meaning: string }> = {
+        NaCl: {
+          label: 'Salinidad (NaCl)',
+          tolerance: 'Alta',
+          meaning: 'Buen desempeño con salinidad moderada.',
+        },
+        Cd: {
+          label: 'Metal pesado (Cd)',
+          tolerance: 'Alta',
+          meaning: 'Resiste suelos con cadmio.',
+        },
+        Al: {
+          label: 'Aluminio (Al)',
+          tolerance: 'Alta',
+          meaning: 'Mantiene rendimiento con aluminio.',
+        },
+        Sequía: {
+          label: 'Déficit hídrico',
+          tolerance: 'Alta',
+          meaning: 'Se adapta a baja disponibilidad de agua.',
+        },
+        'Sin estrés': {
+          label: 'Condición general',
+          tolerance: 'Media',
+          meaning: 'Rendimiento estable en condiciones estándar.',
+        },
+      }
+
+      const activeFromInputs: StressKey[] = []
+      if (inputModelData.value.nacl > 0) activeFromInputs.push('NaCl')
+      if (inputModelData.value.cd > 0) activeFromInputs.push('Cd')
+      if (inputModelData.value.al > 0) activeFromInputs.push('Al')
+      if (inputModelData.value.aguaPorcentual <= 30) activeFromInputs.push('Sequía')
+
+      const primary: StressKey = activeFromInputs[0] ?? 'Sin estrés'
+
+      const combined = Array.from(
+        new Set([primary, ...activeFromInputs].filter((stress) => stress !== 'Sin estrés'))
+      ) as StressKey[]
+
+      const base = stressMeta[primary] ?? stressMeta['Sin estrés']
+
+      if (combined.length > 1) {
+        return {
+          stressKey: primary,
+          stressLabel: combined.map((stress) => stressMeta[stress].label).join(' + '),
+          tolerance: 'Media' as const,
+          meaning: 'Estrés combinado; requiere manejo cuidadoso.',
+        }
+      }
+
+      if (combined.length === 0) {
+        return {
+          stressKey: 'Sin estrés',
+          stressLabel: stressMeta['Sin estrés'].label,
+          tolerance: stressMeta['Sin estrés'].tolerance,
+          meaning: stressMeta['Sin estrés'].meaning,
+        }
+      }
+
+      return {
+        stressKey: primary,
+        stressLabel: base.label,
+        tolerance: base.tolerance,
+        meaning: base.meaning,
+      }
+    })()
+
     result.value = {
       predicted_line: data.predicted_line,
       probabilities: data.probabilities,
@@ -213,6 +298,10 @@ async function submitForm() {
             ? { gene: g.gene, score: g.score ?? 0, stresses: g.stresses ?? [] }
             : String(g)
       ),
+      context: {
+        cultivo: inputModelData.value.cultivo,
+        ...stressInfo,
+      },
     }
     emit('prediction-updated', result.value)
   } catch (err: unknown) {

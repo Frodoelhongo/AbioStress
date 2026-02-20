@@ -41,7 +41,7 @@ const navLinks = [
   { id: 'database', label: 'BASE DE DATOS' },
   { id: 'gene-prediction', label: 'PREDICCIÓN DE LÍNEAS RESILIENTES' },
   { id: 'interpretation', label: 'INTERPRETACIÓN CIENTIFICA' },
-  { id: 'interpretacion-agricola', label: 'INTERPRETACIÓN AGRÍCOLA' },
+  { id: 'interpretacion-agricola', label: 'Razones científicas para los agricultores' },
   { id: 'about-us', label: 'SOBRE NOSOTROS' }
 ];
 

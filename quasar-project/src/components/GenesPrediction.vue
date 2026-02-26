@@ -41,11 +41,15 @@
           <p class="text-bold">Condiciones de estrés abiótico</p>
           <q-input v-model.number="inputModelData.aguaPorcentual" label="Agua Porcentual (%)"
                    type="number" outlined dense required />
-          <q-input v-model.number="inputModelData.nacl" label="Concentración de NaCl (Ppm)"
+          <q-input v-model.number="inputModelData.nacl" label="Conductividad electrica (S/m)"
                    type="number" outlined dense required />
-          <q-input v-model.number="inputModelData.cd" label="Concentración de Cd (Ppm)"
+          <q-input v-model.number="inputModelData.cd" label="Concentración de Cd (mg/kg)"
                    type="number" outlined dense required />
-          <q-input v-model.number="inputModelData.al" label="Concentración de Al (Ppm)"
+          <q-input v-model.number="inputModelData.al" label="Concentración de Al (mg/kg)"
+                   type="number" outlined dense required />
+          <q-input v-model.number="inputModelData.zn" label="Concentración de Zn (mg/kg)"
+                   type="number" outlined dense required />
+          <q-input v-model.number="inputModelData.fe" label="Concentración de Fe (mg/kg)"
                    type="number" outlined dense required />
 
           <q-btn
@@ -145,7 +149,7 @@ const emit = defineEmits<{
   } | null]
 }>()
 
-type StressKey = 'NaCl' | 'Cd' | 'Al' | 'Sequía' | 'Sin estrés'
+type StressKey = 'NaCl' | 'Cd' | 'Al' | 'Zn' | 'Fe' | 'Sequía' | 'Sin estrés'
 
 const splitterModel = ref(50)
 const loading = ref(false)
@@ -189,6 +193,8 @@ const inputModelData = ref<GENE_MODEL_INPUTS>({
   nacl: 0,
   cd: 0,
   al: 0,
+  zn: 0,
+  fe: 0,
 })
 
 
@@ -236,6 +242,16 @@ async function submitForm() {
           tolerance: 'Alta',
           meaning: 'Mantiene rendimiento con aluminio.',
         },
+        Zn: {
+          label: 'Zinc (Zn)',
+          tolerance: 'Alta',
+          meaning: 'Mantiene estabilidad ante concentraciones elevadas de zinc.',
+        },
+        Fe: {
+          label: 'Hierro (Fe)',
+          tolerance: 'Alta',
+          meaning: 'Mantiene estabilidad ante concentraciones elevadas de hierro.',
+        },
         Sequía: {
           label: 'Déficit hídrico',
           tolerance: 'Alta',
@@ -252,6 +268,8 @@ async function submitForm() {
       if (inputModelData.value.nacl >= 5) activeFromInputs.push('NaCl')
       if (inputModelData.value.cd >= 1) activeFromInputs.push('Cd')
       if (inputModelData.value.al >= 1) activeFromInputs.push('Al')
+      if (inputModelData.value.zn >= 1) activeFromInputs.push('Zn')
+      if (inputModelData.value.fe >= 1) activeFromInputs.push('Fe')
       if (inputModelData.value.aguaPorcentual <= 40) activeFromInputs.push('Sequía')
 
       const primary: StressKey = activeFromInputs[0] ?? 'Sin estrés'

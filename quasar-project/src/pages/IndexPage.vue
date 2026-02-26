@@ -48,32 +48,8 @@
               </div>
             </q-carousel-slide>
 
-            <!-- Slide 2: Resiliencia -->
+            <!-- Slide 2: Cultivos disponibles -->
             <q-carousel-slide name="2" class="q-pa-none">
-              <div class="slide-background">
-                <div class="info-card-compact">
-                  <h3 class="card-subtitle">
-                    Nuestro sistema identifica las líneas de cultivo con mejores mecanismos de resiliencia frente a:
-                  </h3>
-                  <div class="row q-mt-md items-center">
-                    <div class="col-4 flex flex-center">
-                      <img src="/images/drougth.jpg" class="drought-image-small" />
-                    </div>
-                    <div class="col-8 flex column justify-center">
-                      <ul class="stress-list-compact">
-                        <li><strong>Sequía</strong></li>
-                        <li><strong>Salinidad</strong></li>
-                        <li><strong>Temperaturas extremas</strong> (calor o frío)</li>
-                        <li><strong>Suelos con metales pesados</strong></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </q-carousel-slide>
-
-            <!-- Slide 3: Cultivos disponibles -->
-            <q-carousel-slide name="3" class="q-pa-none">
               <div class="slide-background">
                 <div class="slide-title-box">
                   <h3 class="slide-title-text">Cultivos disponibles para consulta</h3>
@@ -109,6 +85,30 @@
                         <img src="/images/Sorghum.jpg" class="crop-img-compact" />
                       </div>
                       <p class="crop-label-compact">Sorgo</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </q-carousel-slide>
+
+            <!-- Slide 3: Resiliencia -->
+            <q-carousel-slide name="3" class="q-pa-none">
+              <div class="slide-background">
+                <div class="info-card-compact">
+                  <h3 class="card-subtitle">
+                    Nuestro sistema identifica las líneas de cultivo con mejores mecanismos de resiliencia frente a:
+                  </h3>
+                  <div class="row q-mt-md items-center">
+                    <div class="col-4 flex flex-center">
+                      <img src="/images/drougth.jpg" class="drought-image-small" />
+                    </div>
+                    <div class="col-8 flex column justify-center">
+                      <ul class="stress-list-compact">
+                        <li><strong>Sequía</strong></li>
+                        <li><strong>Salinidad</strong></li>
+                        <li><strong>Temperaturas extremas</strong> (calor o frío)</li>
+                        <li><strong>Suelos con metales pesados</strong></li>
+                      </ul>
                     </div>
                   </div>
                 </div>

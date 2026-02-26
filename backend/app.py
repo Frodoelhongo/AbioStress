@@ -252,6 +252,8 @@ class SiteInput(BaseModel):
     nacl: float
     cd: float
     al: float
+    zn: float
+    fe: float
 
 def preprocess(inp: SiteInput, cultivo_prefix: str) -> torch.Tensor:
     """Preprocesa entrada para el cultivo especificado"""
@@ -285,6 +287,8 @@ def preprocess(inp: SiteInput, cultivo_prefix: str) -> torch.Tensor:
         "nacl": ["nacl"],
         "cd": ["cd ("],
         "al": ["al ("],
+        "zn": ["zn ("],
+        "fe": ["fe ("],
     }
     
     # 5) Rellenar valores numéricos usando coincidencia de patrones

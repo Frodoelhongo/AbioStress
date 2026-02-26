@@ -19,6 +19,8 @@ export interface GENE_MODEL_INPUTS {
   nacl: number;
   cd: number;
   al: number;
+  zn: number;
+  fe: number;
 }
 
 export interface GenePrediction {
@@ -55,6 +57,8 @@ export async function predictGenes(input: GENE_MODEL_INPUTS): Promise<GenePredic
     nacl: input.nacl,
     cd: input.cd,
     al: input.al,
+    zn: input.zn,
+    fe: input.fe,
   };
 
   const { data } = await api.post<GenePrediction>('/predict', payload);

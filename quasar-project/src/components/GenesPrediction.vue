@@ -149,7 +149,7 @@ const emit = defineEmits<{
   } | null]
 }>()
 
-type StressKey = 'NaCl' | 'Cd' | 'Al' | 'Zn' | 'Fe' | 'Sequía' | 'Sin estrés'
+type StressKey = 'NaCl' | 'Cd' | 'Al' | 'Sequía' | 'Sin estrés'
 
 const splitterModel = ref(50)
 const loading = ref(false)
@@ -180,18 +180,18 @@ function onCultivoChange() {
 // Form defaults
 const inputModelData = ref<GENE_MODEL_INPUTS>({
   cultivo: 'Sandía',
-  temperatura:25,
+  temperatura:38,
   humedadRelativa: 56,
-  intensidadLuminica: 2300,
+  intensidadLuminica: 320,
   pH: 7.5,
-  humedadSuelo: 24,
+  humedadSuelo: 20,
   carbonoOrganico: 0.2,
   nitrogenoTotal: 0.03,
   fosforoSoluble: 3.0,
   texturaSuelo: 'Arcilloso',
-  aguaPorcentual: 10,
+  aguaPorcentual: 5,
   nacl: 0,
-  cd: 0,
+  cd: 37,
   al: 0,
   zn: 0,
   fe: 0,
@@ -242,16 +242,6 @@ async function submitForm() {
           tolerance: 'Alta',
           meaning: 'Mantiene rendimiento con aluminio.',
         },
-        Zn: {
-          label: 'Zinc (Zn)',
-          tolerance: 'Alta',
-          meaning: 'Mantiene estabilidad ante concentraciones elevadas de zinc.',
-        },
-        Fe: {
-          label: 'Hierro (Fe)',
-          tolerance: 'Alta',
-          meaning: 'Mantiene estabilidad ante concentraciones elevadas de hierro.',
-        },
         Sequía: {
           label: 'Déficit hídrico',
           tolerance: 'Alta',
@@ -268,8 +258,6 @@ async function submitForm() {
       if (inputModelData.value.nacl >= 5) activeFromInputs.push('NaCl')
       if (inputModelData.value.cd >= 1) activeFromInputs.push('Cd')
       if (inputModelData.value.al >= 1) activeFromInputs.push('Al')
-      if (inputModelData.value.zn >= 1) activeFromInputs.push('Zn')
-      if (inputModelData.value.fe >= 1) activeFromInputs.push('Fe')
       if (inputModelData.value.aguaPorcentual <= 40) activeFromInputs.push('Sequía')
 
       const primary: StressKey = activeFromInputs[0] ?? 'Sin estrés'

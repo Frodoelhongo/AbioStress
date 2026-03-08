@@ -184,7 +184,7 @@ const inputModelData = ref<GENE_MODEL_INPUTS>({
   humedadRelativa: 56,
   intensidadLuminica: 320,
   pH: 7.5,
-  humedadSuelo: 20,
+  humedadSuelo: 0,
   carbonoOrganico: 0.2,
   nitrogenoTotal: 0.03,
   fosforoSoluble: 3.0,

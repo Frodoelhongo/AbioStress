@@ -28,7 +28,8 @@ const loading = ref(false)
 
 // Búsqueda y filtros
 const search = ref('')
-const searchField = ref('id') // id, nombre, funcion
+const searchField = ref('id') // id, anotation, go, kegg, cultivo
+const searchFieldOptions = ['id', 'anotation', 'go', 'kegg', 'cultivo']
 const cultivoFilter = ref('Todos')
 const availableCultivos = ref<string[]>(['Todos'])
 
@@ -74,16 +75,16 @@ async function loadRows() {
 // Verificar si una fila debe resaltarse (gene match)
 function isHighlighted(row: Record<string, unknown>): boolean {
   const id = typeof row.id === 'string' ? row.id.toLowerCase().trim() : ''
-  const nombre = typeof row.nombre === 'string' ? row.nombre.toLowerCase().trim() : ''
-  return predictedGenes.value.has(id) || predictedGenes.value.has(nombre)
+  const annotation = typeof row.anotation === 'string' ? row.anotation.toLowerCase().trim() : ''
+  return predictedGenes.value.has(id) || predictedGenes.value.has(annotation)
 }
 
 // Columnas para la tabla
 const columns: QTableProps['columns'] = [
   { name: 'id', label: 'ID', field: 'id', align: 'left', sortable: true },
-  { name: 'nombre', label: 'Nombre', field: 'nombre', align: 'left', sortable: true },
-  { name: 'cultivo', label: 'Cultivo', field: 'cultivo', align: 'left', sortable: true },
-  { name: 'funcion', label: 'Función', field: 'funcion', align: 'left' }
+  { name: 'anotation', label: 'Anotation', field: 'anotation', align: 'left', sortable: true },
+  { name: 'go', label: 'GO', field: 'go', align: 'left', sortable: true },
+  { name: 'kegg', label: 'KEGG', field: 'kegg', align: 'left', sortable: true }
 ]
 
 // Exportar la vista actual (filtrada) a Excel
@@ -94,7 +95,12 @@ async function exportFiltered () {
     loadError.value = 'Falta la librería "xlsx". Instálala con: npm i xlsx'
     return
   }
-  const ws = XLSX.utils.json_to_sheet(rows.value.map(r => ({ ID: r.id, Nombre: r.nombre, Funcion: r.funcion, Cultivo: r.cultivo ?? '' })))
+  const ws = XLSX.utils.json_to_sheet(rows.value.map(r => ({
+    ID: r.id,
+    Anotation: r.anotation,
+    GO: r.go,
+    KEGG: r.kegg
+  })))
   const wb = XLSX.utils.book_new()
   XLSX.utils.book_append_sheet(wb, ws, 'Filtrada')
   XLSX.writeFile(wb, 'interpretacion_filtrada.xlsx')
@@ -128,7 +134,7 @@ onMounted(() => {
         <q-select
           dense outlined
           v-model="searchField"
-          :options="['id', 'nombre', 'funcion']"
+          :options="searchFieldOptions"
           label="Buscar en"
         />
       </div>

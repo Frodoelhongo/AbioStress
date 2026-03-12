@@ -9,6 +9,7 @@ import joblib, torch, json
 import numpy as np
 import pandas as pd
 from pathlib import Path
+import unicodedata
 
 app = FastAPI(title="AbioStress Backend", version="1.0")
 
@@ -472,29 +473,99 @@ def predict_site(payload: SiteInput):
 # Endpoint para Interpretaciones (Excel estático en servidor)
 # -----------------------------
 DB_DIR = BASE / 'db'
+ROOT_DB_DIR = BASE.parent / 'db'
 
-# Mapeo de cultivos a archivos
-INTERPRETATION_FILES = {
-    'Sandía': DB_DIR / 'interpretaciones_sandia.xlsx',
-    'Maíz': DB_DIR / 'interpretaciones_maiz.xlsx'
+INTERPRETATION_LABELS = {
+    'sandia': 'Sandía',
+    'maiz': 'Maíz',
+    'tomate': 'Tomate',
+    'sorgo': 'Sorgo',
+    'algodon': 'Algodón',
+    'gh': 'Algodón',
 }
+
+def _build_interpretation_files() -> dict[str, Path]:
+    """Descubre automáticamente archivos de interpretación en backend/db y db/."""
+    files: dict[str, Path] = {}
+    seen_paths: set[Path] = set()
+    sources = [DB_DIR, ROOT_DB_DIR]
+    patterns = ['interpretaciones_*.xlsx', 'genes_*.xlsx']
+
+    for source_dir in sources:
+        if not source_dir.exists():
+            continue
+
+        for pattern in patterns:
+            for file_path in sorted(source_dir.glob(pattern)):
+                if file_path in seen_paths:
+                    continue
+                seen_paths.add(file_path)
+
+                stem = file_path.stem
+                if stem.startswith('interpretaciones_'):
+                    suffix = stem.replace('interpretaciones_', '').strip().lower()
+                elif stem.startswith('genes_'):
+                    suffix = stem.replace('genes_', '').strip().lower()
+                else:
+                    continue
+
+                if not suffix:
+                    continue
+
+                label = INTERPRETATION_LABELS.get(
+                    suffix,
+                    suffix.replace('-', ' ').replace('_', ' ').title()
+                )
+
+                # Evitar colisiones de etiqueta si existen sufijos que convergen al mismo título
+                if label in files:
+                    idx = 2
+                    while f'{label} ({idx})' in files:
+                        idx += 1
+                    label = f'{label} ({idx})'
+
+                files[label] = file_path
+
+    return files
 
 @app.get('/interpretation/rows')
 def get_interpretation_rows(cultivo: Optional[str] = None, q: Optional[str] = None, field: str = 'id'):
     """Sirve filas del Excel de interpretaciones filtradas por cultivo y búsqueda"""
+
+    def normalize_col_name(name: str) -> str:
+        text = str(name).strip().lower()
+        text = unicodedata.normalize('NFKD', text)
+        text = ''.join(ch for ch in text if not unicodedata.combining(ch))
+        text = ''.join(ch for ch in text if ch.isalnum())
+        return text
+
+    interpretation_files = _build_interpretation_files()
+    selected_specific = bool(cultivo and cultivo != 'Todos')
+
+    if not interpretation_files:
+        raise HTTPException(status_code=404, detail='No se encontraron archivos de interpretaciones')
     
     # Determinar qué archivos leer
     files_to_read = []
     if cultivo and cultivo != 'Todos':
         # Leer solo el archivo del cultivo especificado
-        file_path = INTERPRETATION_FILES.get(cultivo)
-        if file_path and file_path.exists():
-            files_to_read.append((cultivo, file_path))
-        elif file_path:
+        selected_label = None
+        for label in interpretation_files.keys():
+            if label.lower() == cultivo.lower():
+                selected_label = label
+                break
+
+        if selected_label is None:
             raise HTTPException(status_code=404, detail=f'Archivo de interpretaciones para {cultivo} no encontrado')
+
+        file_path = interpretation_files[selected_label]
+        if file_path.exists():
+            files_to_read.append((selected_label, file_path))
+        else:
+            raise HTTPException(status_code=404, detail=f'Archivo de interpretaciones para {selected_label} no encontrado')
     else:
         # Leer todos los archivos disponibles
-        for cult, file_path in INTERPRETATION_FILES.items():
+        for cult, file_path in interpretation_files.items():
             if file_path.exists():
                 files_to_read.append((cult, file_path))
     
@@ -504,43 +575,61 @@ def get_interpretation_rows(cultivo: Optional[str] = None, q: Optional[str] = No
     try:
         # Leer y combinar todos los archivos necesarios
         all_rows = []
+        loaded_cultivos = set()
         for cult, file_path in files_to_read:
             df = pd.read_excel(file_path)
             # normalizar nombres de columnas
-            cols_map = {c.lower().strip(): c for c in df.columns}
+            cols_map = {normalize_col_name(str(c)): c for c in df.columns}
             def find_col(cands):
                 for cand in cands:
-                    k = cand.lower()
+                    k = normalize_col_name(cand)
                     if k in cols_map:
                         return cols_map[k]
                 return None
 
-            colID = find_col(['id', 'ID', 'Id', 'id del gen', 'ID del gen'])
-            colNombre = find_col(['nombre', 'name', 'Nombre'])
-            colFunc = find_col(['funcion', 'función', 'function', 'Función'])
+            colID = find_col([
+                'id', 'id del gen', 'gene', 'gene id', 'gene_id', 'gene input', 'gene_input'
+            ])
+            colAnnotation = find_col([
+                'anotation', 'annotation', 'anotacion', 'anotación',
+                'function', 'funcion', 'función', 'protein name', 'protein_name', 'nombre'
+            ])
+            colGO = find_col([
+                'go', 'go terms', 'go term', 'go_term', 'go_terms', 'gene ontology'
+            ])
+            colKEGG = find_col([
+                'kegg', 'kegg pathway', 'pathway', 'pathways', 'pathway name', 'pathway_name'
+            ])
 
-            if colID is None or colNombre is None or colFunc is None:
-                raise HTTPException(status_code=400, detail=f'El archivo de {cult} no contiene las columnas necesarias (ID, Nombre, Funcion)')
+            if colID is None or colAnnotation is None or colGO is None or colKEGG is None:
+                if selected_specific:
+                    raise HTTPException(status_code=400, detail=f'El archivo de {cult} no contiene las columnas necesarias (ID, Anotation, GO, KEGG)')
+                continue
 
             # Crear filas con el cultivo asociado
+            loaded_cultivos.add(cult)
             for _, row in df.iterrows():
                 all_rows.append({
                     'id': str(row[colID]).strip() if pd.notna(row[colID]) else '',
-                    'nombre': str(row[colNombre]).strip() if pd.notna(row[colNombre]) else '',
-                    'funcion': str(row[colFunc]).strip() if pd.notna(row[colFunc]) else '',
+                    'anotation': str(row[colAnnotation]).strip() if pd.notna(row[colAnnotation]) else '',
+                    'go': str(row[colGO]).strip() if pd.notna(row[colGO]) else '',
+                    'kegg': str(row[colKEGG]).strip() if pd.notna(row[colKEGG]) else '',
                     'cultivo': cult
                 })
         
         # Convertir a DataFrame para facilitar filtrado
         df2 = pd.DataFrame(all_rows)
+
+        if len(df2) == 0:
+            raise HTTPException(status_code=404, detail='No se encontraron archivos compatibles con columnas (ID, Anotation, GO, KEGG)')
         
         # Obtener cultivos disponibles
-        cultivos_disponibles = ['Todos'] + [cult for cult, fp in INTERPRETATION_FILES.items() if fp.exists()]
+        cultivos_disponibles = ['Todos'] + [cult for cult in interpretation_files.keys() if cult in loaded_cultivos]
 
         # aplicar búsqueda q sobre campo específico
         if q and len(df2) > 0:
             ql = str(q).lower()
-            if field not in ['id', 'nombre', 'funcion', 'cultivo']:
+            if field not in ['id', 'anotation', 'go', 'kegg', 'cultivo']:
                 field = 'id'
             df2 = df2[df2[field].str.lower().str.contains(ql, na=False, regex=False)]
 

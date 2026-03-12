@@ -512,10 +512,15 @@ def _build_interpretation_files() -> dict[str, Path]:
                 if not suffix:
                     continue
 
-                label = INTERPRETATION_LABELS.get(
-                    suffix,
-                    suffix.replace('-', ' ').replace('_', ' ').title()
-                )
+                if suffix in INTERPRETATION_LABELS:
+                    label = INTERPRETATION_LABELS[suffix]
+                else:
+                    clean_parts = [
+                        part for part in suffix.replace('-', ' ').replace('_', ' ').split()
+                        if part.lower() not in {'acomodado', 'acomodados'}
+                    ]
+                    clean_suffix = ' '.join(clean_parts).strip()
+                    label = (clean_suffix or suffix).title()
 
                 # Evitar colisiones de etiqueta si existen sufijos que convergen al mismo título
                 if label in files:
